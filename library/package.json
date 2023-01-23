@@ -1,0 +1,10 @@
+{
+  "name": "smooth-edit",
+  "version": "1.0.0",
+  "description": "Smooth edit mode transition",
+  "main": "index.js",
+  "repository": "https://github.com/teamrevin/smooth-edit/library",
+  "author": "Niklas Salmoukas",
+  "license": "COMMERCIAL",
+  "private": false
+}
