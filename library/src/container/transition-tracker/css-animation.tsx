@@ -1,12 +1,10 @@
 import { CreateTransitionTracker, transitionTrackerFactory } from "./factory";
 
 export const createCssAnimationTracker: CreateTransitionTracker =
-    transitionTrackerFactory(function (
-        addActiveTransition: (v0: unknown, v1: unknown) => void,
-        removeActiveTransition: (v0: unknown, v1: unknown) => void,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        resetIdleTimeout: () => void
-    ) {
+    transitionTrackerFactory(function ({
+        addActiveTransition,
+        removeActiveTransition,
+    }) {
         function registerEventListener(element: HTMLElement): void {
             element.addEventListener("animationstart", onAnimationStart);
             element.addEventListener("animationiteration", onAnimationStart);

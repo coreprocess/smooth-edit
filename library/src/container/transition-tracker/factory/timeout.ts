@@ -1,8 +1,12 @@
-export function timeoutManagementFactory(
-    idlePeriod: number,
-    totalPeriod: number,
-    onTimeout: () => void
-) {
+export function timeoutManagementFactory({
+    idlePeriod,
+    totalPeriod,
+    onTimeout,
+}: {
+    idlePeriod: number;
+    totalPeriod: number;
+    onTimeout: () => void;
+}) {
     let idleTimeout: number | null = null;
     let totalTimeout: number | null = null;
 

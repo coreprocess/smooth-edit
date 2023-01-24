@@ -33,25 +33,29 @@ export function transitionTrackerFactory(
             resetIdleTimeout,
             activateTotalTimeout,
             clearTotalTimeout,
-        } = timeoutManagementFactory(idleTimeout, totalTimeout, onTimeout);
+        } = timeoutManagementFactory({
+            idlePeriod: idleTimeout,
+            totalPeriod: totalTimeout,
+            onTimeout,
+        });
 
         // active transition management
         const {
             addActiveTransition,
             removeActiveTransition,
             clearActiveTransitions,
-        } = activeTransitionManagementFactory(
+        } = activeTransitionManagementFactory({
             clearIdleTimeout,
-            activateIdleTimeout
-        );
+            activateIdleTimeout,
+        });
 
         // event listener management
         const { registerEventListener, unregisterEventListener } =
-            eventListenerManagementFactory(
+            eventListenerManagementFactory({
                 addActiveTransition,
                 removeActiveTransition,
-                resetIdleTimeout
-            );
+                resetIdleTimeout,
+            });
 
         // initialize tracker
         if (element !== null) {

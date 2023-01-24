@@ -1,7 +1,10 @@
-export function activeTransitionManagementFactory(
-    clearIdleTimeout: () => void,
-    activateIdleTimeout: () => void
-) {
+export function activeTransitionManagementFactory({
+    clearIdleTimeout,
+    activateIdleTimeout,
+}: {
+    clearIdleTimeout: () => void;
+    activateIdleTimeout: () => void;
+}) {
     const activeTransitions: Map<unknown, Set<unknown>> = new Map();
 
     function addActiveTransition(v0: unknown, v1: unknown) {
