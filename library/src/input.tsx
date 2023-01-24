@@ -24,6 +24,7 @@ export function wrapSmoothEditInput<Props>(
             editMode,
             activateEditMode,
             deactivateEditMode,
+            setInputRootRef,
             setInputContentRef,
             setInputConfig,
         } = useContext(SmoothEditContext);
@@ -52,6 +53,7 @@ export function wrapSmoothEditInput<Props>(
         // render the input
         return (
             <Component
+                rootRef={setInputRootRef}
                 contentRef={setInputContentRefWithId}
                 editMode={editMode}
                 activateEditMode={activateEditModeWithId}

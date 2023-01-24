@@ -92,12 +92,14 @@ export function SmoothEditContainer({
         scrollAreaRoot: HTMLElement | null;
         topBufferRoot: HTMLElement | null;
         bottomBufferRoot: HTMLElement | null;
+        inputRoot: Map<string, HTMLElement>;
         inputContent: Map<string, HTMLElement>;
     }>({
         navBarRoot: null,
         scrollAreaRoot: null,
         topBufferRoot: null,
         bottomBufferRoot: null,
+        inputRoot: new Map(),
         inputContent: new Map(),
     });
 
@@ -116,6 +118,17 @@ export function SmoothEditContainer({
     const setBottomBufferRootRef = useCallback((node: HTMLElement | null) => {
         refs.current.bottomBufferRoot = node;
     }, []);
+
+    const setInputRootRef = useCallback(
+        (id: string, node: HTMLElement | null) => {
+            if (node) {
+                refs.current.inputRoot.set(id, node);
+            } else {
+                refs.current.inputRoot.delete(id);
+            }
+        },
+        []
+    );
 
     const setInputContentRef = useCallback(
         (id: string, node: HTMLElement | null) => {
@@ -170,6 +183,7 @@ export function SmoothEditContainer({
             setScrollAreaRootRef,
             setTopBufferRootRef,
             setBottomBufferRootRef,
+            setInputRootRef,
             setInputContentRef,
             setNavBarConfig,
             setScrollAreaConfig,
@@ -183,6 +197,7 @@ export function SmoothEditContainer({
             setScrollAreaRootRef,
             setTopBufferRootRef,
             setBottomBufferRootRef,
+            setInputRootRef,
             setInputContentRef,
             setNavBarConfig,
             setScrollAreaConfig,

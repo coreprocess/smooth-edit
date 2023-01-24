@@ -4,13 +4,6 @@ export function detectCssTransitionEnd(
     timeout: number,
     callback: () => void
 ) {
-    // promisify
-    if (!callback) {
-        return new Promise((resolve) => {
-            detectCssTransitionEnd(element, timeout, () => resolve(undefined));
-        });
-    }
-
     // active transitions and timeouts
     const transitions = new Map<EventTarget, Set<string>>();
     let timeoutId: number | null = null;

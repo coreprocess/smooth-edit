@@ -13,6 +13,7 @@ type SmoothEditContext = {
     setScrollAreaRootRef: (node: HTMLElement | null) => void;
     setTopBufferRootRef: (node: HTMLElement | null) => void;
     setBottomBufferRootRef: (node: HTMLElement | null) => void;
+    setInputRootRef: (id: string, node: HTMLElement | null) => void;
     setInputContentRef: (id: string, node: HTMLElement | null) => void;
     setNavBarConfig: (config: SmoothEditNavBarConfig) => void;
     setScrollAreaConfig: (config: SmoothEditScrollAreaConfig) => void;
@@ -33,6 +34,8 @@ export const SmoothEditContext = createContext<SmoothEditContext>({
     setTopBufferRootRef: (node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     setBottomBufferRootRef: (node: HTMLElement | null) => {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+    setInputRootRef: (id: string, node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     setInputContentRef: (id: string, node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
