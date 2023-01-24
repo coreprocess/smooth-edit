@@ -6,26 +6,26 @@ export const createCssTransitionTracker: CreateTransitionTracker =
         removeActiveTransition,
     }) {
         function registerEventListener(element: HTMLElement): void {
-            element.addEventListener("transitionrun", onTransitionStart);
-            element.addEventListener("transitionstart", onTransitionStart);
-            element.addEventListener("transitionend", onTransitionStop);
-            element.addEventListener("transitioncancel", onTransitionStop);
+            element.addEventListener("transitionrun", onTransitionRun);
+            element.addEventListener("transitionstart", onTransitionRun);
+            element.addEventListener("transitionend", onTransitionEnd);
+            element.addEventListener("transitioncancel", onTransitionEnd);
         }
 
         function unregisterEventListener(element: HTMLElement): void {
-            element.removeEventListener("transitionrun", onTransitionStart);
-            element.removeEventListener("transitionstart", onTransitionStart);
-            element.removeEventListener("transitionend", onTransitionStop);
-            element.removeEventListener("transitioncancel", onTransitionStop);
+            element.removeEventListener("transitionrun", onTransitionRun);
+            element.removeEventListener("transitionstart", onTransitionRun);
+            element.removeEventListener("transitionend", onTransitionEnd);
+            element.removeEventListener("transitioncancel", onTransitionEnd);
         }
 
-        function onTransitionStart({ target, propertyName }: TransitionEvent) {
+        function onTransitionRun({ target, propertyName }: TransitionEvent) {
             if (target) {
                 addActiveTransition(target, propertyName);
             }
         }
 
-        function onTransitionStop({ target, propertyName }: TransitionEvent) {
+        function onTransitionEnd({ target, propertyName }: TransitionEvent) {
             if (target) {
                 removeActiveTransition(target, propertyName);
             }

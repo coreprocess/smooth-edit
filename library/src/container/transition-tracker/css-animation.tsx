@@ -8,15 +8,15 @@ export const createCssAnimationTracker: CreateTransitionTracker =
         function registerEventListener(element: HTMLElement): void {
             element.addEventListener("animationstart", onAnimationStart);
             element.addEventListener("animationiteration", onAnimationStart);
-            element.addEventListener("animationend", onAnimationStop);
-            element.addEventListener("animationcancel", onAnimationStop);
+            element.addEventListener("animationend", onAnimationEnd);
+            element.addEventListener("animationcancel", onAnimationEnd);
         }
 
         function unregisterEventListener(element: HTMLElement): void {
             element.removeEventListener("animationstart", onAnimationStart);
             element.removeEventListener("animationiteration", onAnimationStart);
-            element.removeEventListener("animationend", onAnimationStop);
-            element.removeEventListener("animationcancel", onAnimationStop);
+            element.removeEventListener("animationend", onAnimationEnd);
+            element.removeEventListener("animationcancel", onAnimationEnd);
         }
 
         function onAnimationStart({ target, animationName }: AnimationEvent) {
@@ -25,7 +25,7 @@ export const createCssAnimationTracker: CreateTransitionTracker =
             }
         }
 
-        function onAnimationStop({ target, animationName }: AnimationEvent) {
+        function onAnimationEnd({ target, animationName }: AnimationEvent) {
             if (target) {
                 removeActiveTransition(target, animationName);
             }
