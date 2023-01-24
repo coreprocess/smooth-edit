@@ -1,5 +1,5 @@
-export type SmoothEditInputConfig = {
-    fixContent: "top" | "middle" | "bottom";
+// configuration shared by all components
+type SmoothEditBaseConfig = {
     trackTransition: {
         css: {
             enabled: boolean;
@@ -12,8 +12,7 @@ export type SmoothEditInputConfig = {
     };
 };
 
-export const defaultSmoothEditInputConfig: SmoothEditInputConfig = {
-    fixContent: "top",
+const defaultSmoothEditBaseConfig: SmoothEditBaseConfig = {
     trackTransition: {
         css: {
             enabled: true,
@@ -24,4 +23,28 @@ export const defaultSmoothEditInputConfig: SmoothEditInputConfig = {
             timeout: 1000,
         },
     },
+};
+
+// configuration for navbar component
+export type SmoothEditNavBarConfig = SmoothEditBaseConfig;
+
+export const defaultSmoothEditNavBarConfig: SmoothEditNavBarConfig = {
+    ...defaultSmoothEditBaseConfig,
+};
+
+// configuration for scroll area component
+export type SmoothEditScrollAreaConfig = SmoothEditBaseConfig;
+
+export const defaultSmoothEditScrollAreaConfig: SmoothEditScrollAreaConfig = {
+    ...defaultSmoothEditBaseConfig,
+};
+
+// configuration for input components
+export type SmoothEditInputConfig = SmoothEditBaseConfig & {
+    fixContent: "top" | "middle" | "bottom";
+};
+
+export const defaultSmoothEditInputConfig: SmoothEditInputConfig = {
+    ...defaultSmoothEditBaseConfig,
+    fixContent: "top",
 };

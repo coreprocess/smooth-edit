@@ -1,4 +1,10 @@
-import React, { ComponentType, useContext } from "react";
+import _ from "lodash";
+import React, { ComponentType, useContext, useEffect } from "react";
+import { DeepPartial } from "tsdef";
+import {
+    defaultSmoothEditScrollAreaConfig,
+    SmoothEditScrollAreaConfig,
+} from "./config";
 import { SmoothEditContext } from "./context";
 
 function TopBuffer() {
@@ -12,7 +18,8 @@ function BottomBuffer() {
 }
 
 export function wrapSmoothEditScrollArea<Props>(
-    Component: ComponentType<Props>
+    Component: ComponentType<Props>,
+    config: DeepPartial<SmoothEditScrollAreaConfig>
 ) {
     // higher order component that wraps the inner component
     return function SmoothEditScrollArea(props: Props) {
@@ -22,7 +29,15 @@ export function wrapSmoothEditScrollArea<Props>(
             activateEditMode,
             deactivateEditMode,
             setScrollAreaRootRef,
+            setScrollAreaConfig,
         } = useContext(SmoothEditContext);
+
+        // apply the config to the context
+        useEffect(() => {
+            setScrollAreaConfig(
+                _.merge({}, defaultSmoothEditScrollAreaConfig, config)
+            );
+        }, [setScrollAreaConfig]);
 
         // render the scroll area
         return (

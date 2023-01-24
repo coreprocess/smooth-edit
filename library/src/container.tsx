@@ -1,11 +1,15 @@
 import React, {
+    ReactNode,
     useCallback,
     useMemo,
-    useState,
     useRef,
-    ReactNode,
+    useState,
 } from "react";
-import { SmoothEditInputConfig } from "./config";
+import {
+    SmoothEditInputConfig,
+    SmoothEditNavBarConfig,
+    SmoothEditScrollAreaConfig,
+} from "./config";
 import { SmoothEditContext } from "./context";
 import { detectCssTransitionEnd } from "./utils/css-transition";
 import { fixElementContentPosition } from "./utils/fix-element";
@@ -124,12 +128,34 @@ export function SmoothEditContainer({
         []
     );
 
-    // input config handling
-    const inputConfig = useRef(new Map<string, SmoothEditInputConfig>());
+    // config handling
+    const config = useRef<{
+        navBar: SmoothEditNavBarConfig | null;
+        scrollArea: SmoothEditScrollAreaConfig | null;
+        input: Map<string, SmoothEditInputConfig>;
+    }>({
+        navBar: null,
+        scrollArea: null,
+        input: new Map<string, SmoothEditInputConfig>(),
+    });
+
+    const setNavBarConfig = useCallback(
+        (navBarConfig: SmoothEditNavBarConfig) => {
+            config.current.navBar = navBarConfig;
+        },
+        []
+    );
+
+    const setScrollAreaConfig = useCallback(
+        (scrollAreaConfig: SmoothEditScrollAreaConfig) => {
+            config.current.scrollArea = scrollAreaConfig;
+        },
+        []
+    );
 
     const setInputConfig = useCallback(
-        (id: string, config: SmoothEditInputConfig) => {
-            inputConfig.current.set(id, config);
+        (id: string, inputConfig: SmoothEditInputConfig) => {
+            config.current.input.set(id, inputConfig);
         },
         []
     );
@@ -145,6 +171,8 @@ export function SmoothEditContainer({
             setTopBufferRootRef,
             setBottomBufferRootRef,
             setInputContentRef,
+            setNavBarConfig,
+            setScrollAreaConfig,
             setInputConfig,
         }),
         [
@@ -156,6 +184,8 @@ export function SmoothEditContainer({
             setTopBufferRootRef,
             setBottomBufferRootRef,
             setInputContentRef,
+            setNavBarConfig,
+            setScrollAreaConfig,
             setInputConfig,
         ]
     );
