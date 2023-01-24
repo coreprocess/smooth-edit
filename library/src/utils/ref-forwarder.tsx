@@ -1,4 +1,4 @@
-import { MutableRefObject, Ref, RefCallback, useCallback } from "react";
+import { MutableRefObject, RefCallback, useCallback } from "react";
 
 // hook to forward a ref to multiple refs
 export function useRefForwarder(

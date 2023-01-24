@@ -21,9 +21,12 @@ export function detectCssTransitionEnd(
             clearTimeout(timeoutId);
             timeoutId = null;
         }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         if (!transitions.has(event.target!)) {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             transitions.set(event.target!, new Set());
         }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         transitions.get(event.target!)!.add(event.propertyName);
     }
 
@@ -33,9 +36,13 @@ export function detectCssTransitionEnd(
             clearTimeout(timeoutId);
             timeoutId = null;
         }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         if (transitions.has(event.target!)) {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             transitions.get(event.target!)!.delete(event.propertyName);
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             if (transitions.get(event.target!)!.size === 0) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 transitions.delete(event.target!);
             }
         }

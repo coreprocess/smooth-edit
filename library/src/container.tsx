@@ -5,6 +5,7 @@ import React, {
     useRef,
     ReactNode,
 } from "react";
+import { SmoothEditInputConfig } from "./config";
 import { SmoothEditContext } from "./context";
 import { detectCssTransitionEnd } from "./utils/css-transition";
 import { fixElementContentPosition } from "./utils/fix-element";
@@ -123,6 +124,16 @@ export function SmoothEditContainer({
         []
     );
 
+    // input config handling
+    const inputConfig = useRef(new Map<string, SmoothEditInputConfig>());
+
+    const setInputConfig = useCallback(
+        (id: string, config: SmoothEditInputConfig) => {
+            inputConfig.current.set(id, config);
+        },
+        []
+    );
+
     // create context value
     const context = useMemo(
         () => ({
@@ -134,6 +145,7 @@ export function SmoothEditContainer({
             setTopBufferRootRef,
             setBottomBufferRootRef,
             setInputContentRef,
+            setInputConfig,
         }),
         [
             editMode,
@@ -144,6 +156,7 @@ export function SmoothEditContainer({
             setTopBufferRootRef,
             setBottomBufferRootRef,
             setInputContentRef,
+            setInputConfig,
         ]
     );
 

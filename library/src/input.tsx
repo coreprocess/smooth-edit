@@ -1,7 +1,26 @@
-import React, { ComponentType, useCallback, useContext, useId } from "react";
+import _ from "lodash";
+import React, {
+    ComponentType,
+    useCallback,
+    useContext,
+    useEffect,
+    useId,
+} from "react";
+import { DeepPartial } from "tsdef";
+import { defaultSmoothEditInputConfig, SmoothEditInputConfig } from "./config";
 import { SmoothEditContext } from "./context";
 
-export function wrapSmoothEditInput<Props>(Component: ComponentType<Props>) {
+export function wrapSmoothEditInput<Props>(
+    Component: ComponentType<Props>,
+    config: DeepPartial<SmoothEditInputConfig>
+) {
+    // merge the config with the default config
+    const fullConfig = _.merge(
+        {},
+        defaultSmoothEditInputConfig,
+        config
+    ) as SmoothEditInputConfig;
+
     // higher order component that wraps the inner component
     return function SmoothEditInput(props: Props) {
         // generate a unique id for this input
@@ -13,7 +32,13 @@ export function wrapSmoothEditInput<Props>(Component: ComponentType<Props>) {
             activateEditMode,
             deactivateEditMode,
             setInputContentRef,
+            setInputConfig,
         } = useContext(SmoothEditContext);
+
+        // apply the config to the context
+        useEffect(() => {
+            setInputConfig(id, fullConfig);
+        }, [setInputConfig, id]);
 
         // wrap the activate function so that it provides the id of this input
         const activateEditModeWithId = useCallback(() => {
