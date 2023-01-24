@@ -18,7 +18,7 @@ export function wrapSmoothEditNavBar<Props>(
             editMode,
             activateEditMode,
             deactivateEditMode,
-            setNavBarRootRef,
+            setNavBarRootElement,
             setNavBarConfig,
         } = useContext(SmoothEditContext);
 
@@ -30,7 +30,7 @@ export function wrapSmoothEditNavBar<Props>(
         // render the navbar
         return (
             <Component
-                rootRef={setNavBarRootRef}
+                rootRef={setNavBarRootElement}
                 editMode={editMode}
                 activateEditMode={activateEditMode}
                 deactivateEditMode={deactivateEditMode}

@@ -8,13 +8,13 @@ import {
 import { SmoothEditContext } from "./context";
 
 function TopBuffer() {
-    const { setTopBufferRootRef } = useContext(SmoothEditContext);
-    return <div ref={setTopBufferRootRef} style={{ display: "flex" }} />;
+    const { setTopBufferRootElement } = useContext(SmoothEditContext);
+    return <div ref={setTopBufferRootElement} style={{ display: "flex" }} />;
 }
 
 function BottomBuffer() {
-    const { setBottomBufferRootRef } = useContext(SmoothEditContext);
-    return <div ref={setBottomBufferRootRef} style={{ display: "flex" }} />;
+    const { setBottomBufferRootElement } = useContext(SmoothEditContext);
+    return <div ref={setBottomBufferRootElement} style={{ display: "flex" }} />;
 }
 
 export function wrapSmoothEditScrollArea<Props>(
@@ -28,7 +28,7 @@ export function wrapSmoothEditScrollArea<Props>(
             editMode,
             activateEditMode,
             deactivateEditMode,
-            setScrollAreaRootRef,
+            setScrollAreaRootElement,
             setScrollAreaConfig,
         } = useContext(SmoothEditContext);
 
@@ -42,7 +42,7 @@ export function wrapSmoothEditScrollArea<Props>(
         // render the scroll area
         return (
             <Component
-                rootRef={setScrollAreaRootRef}
+                rootRef={setScrollAreaRootElement}
                 editMode={editMode}
                 activateEditMode={activateEditMode}
                 deactivateEditMode={deactivateEditMode}

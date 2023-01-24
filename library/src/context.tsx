@@ -9,12 +9,12 @@ type SmoothEditContext = {
     editMode: boolean;
     activateEditMode: (id?: string) => void;
     deactivateEditMode: () => void;
-    setNavBarRootRef: (node: HTMLElement | null) => void;
-    setScrollAreaRootRef: (node: HTMLElement | null) => void;
-    setTopBufferRootRef: (node: HTMLElement | null) => void;
-    setBottomBufferRootRef: (node: HTMLElement | null) => void;
-    setInputRootRef: (id: string, node: HTMLElement | null) => void;
-    setInputContentRef: (id: string, node: HTMLElement | null) => void;
+    setNavBarRootElement: (node: HTMLElement | null) => void;
+    setScrollAreaRootElement: (node: HTMLElement | null) => void;
+    setTopBufferRootElement: (node: HTMLElement | null) => void;
+    setBottomBufferRootElement: (node: HTMLElement | null) => void;
+    setInputRootElement: (id: string, node: HTMLElement | null) => void;
+    setInputContentElement: (id: string, node: HTMLElement | null) => void;
     setNavBarConfig: (config: SmoothEditNavBarConfig) => void;
     setScrollAreaConfig: (config: SmoothEditScrollAreaConfig) => void;
     setInputConfig: (id: string, config: SmoothEditInputConfig) => void;
@@ -27,17 +27,17 @@ export const SmoothEditContext = createContext<SmoothEditContext>({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     deactivateEditMode: () => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    setNavBarRootRef: (node: HTMLElement | null) => {},
+    setNavBarRootElement: (node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    setScrollAreaRootRef: (node: HTMLElement | null) => {},
+    setScrollAreaRootElement: (node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    setTopBufferRootRef: (node: HTMLElement | null) => {},
+    setTopBufferRootElement: (node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    setBottomBufferRootRef: (node: HTMLElement | null) => {},
+    setBottomBufferRootElement: (node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    setInputRootRef: (id: string, node: HTMLElement | null) => {},
+    setInputRootElement: (id: string, node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    setInputContentRef: (id: string, node: HTMLElement | null) => {},
+    setInputContentElement: (id: string, node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     setNavBarConfig: (config: SmoothEditNavBarConfig) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
