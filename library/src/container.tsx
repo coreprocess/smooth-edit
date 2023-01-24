@@ -24,9 +24,16 @@ export function SmoothEditContainer({
         }
 
         // get refs to elements
-        const input = refs.current.input.get(id);
-        const { scrollArea, topBuffer, bottomBuffer } = refs.current;
-        if (!input || !scrollArea || !topBuffer || !bottomBuffer) {
+        const inputContent = refs.current.inputContent.get(id);
+        const { scrollAreaRoot, topBufferRoot, bottomBufferRoot } =
+            refs.current;
+
+        if (
+            !inputContent ||
+            !scrollAreaRoot ||
+            !topBufferRoot ||
+            !bottomBufferRoot
+        ) {
             console.error("edit mode transition: could not find element refs");
             return;
         }
@@ -36,14 +43,14 @@ export function SmoothEditContainer({
 
         // fix element content position
         const stopFixation = fixElementContentPosition(
-            input,
-            scrollArea,
-            topBuffer,
-            bottomBuffer
+            inputContent,
+            scrollAreaRoot,
+            topBufferRoot,
+            bottomBufferRoot
         );
 
         // detect end of transition
-        detectCssTransitionEnd(scrollArea, 250, () => {
+        detectCssTransitionEnd(scrollAreaRoot, 250, () => {
             // stop fixation
             stopFixation();
 
@@ -76,42 +83,45 @@ export function SmoothEditContainer({
 
     // reference handling
     const refs = useRef<{
-        navBar: HTMLElement | null;
-        scrollArea: HTMLElement | null;
-        topBuffer: HTMLElement | null;
-        bottomBuffer: HTMLElement | null;
-        input: Map<string, HTMLElement>;
+        navBarRoot: HTMLElement | null;
+        scrollAreaRoot: HTMLElement | null;
+        topBufferRoot: HTMLElement | null;
+        bottomBufferRoot: HTMLElement | null;
+        inputContent: Map<string, HTMLElement>;
     }>({
-        navBar: null,
-        scrollArea: null,
-        topBuffer: null,
-        bottomBuffer: null,
-        input: new Map(),
+        navBarRoot: null,
+        scrollAreaRoot: null,
+        topBufferRoot: null,
+        bottomBufferRoot: null,
+        inputContent: new Map(),
     });
 
-    const setNavBarRef = useCallback((node: HTMLElement | null) => {
-        refs.current.navBar = node;
+    const setNavBarRootRef = useCallback((node: HTMLElement | null) => {
+        refs.current.navBarRoot = node;
     }, []);
 
-    const setScrollAreaRef = useCallback((node: HTMLElement | null) => {
-        refs.current.scrollArea = node;
+    const setScrollAreaRootRef = useCallback((node: HTMLElement | null) => {
+        refs.current.scrollAreaRoot = node;
     }, []);
 
-    const setTopBufferRef = useCallback((node: HTMLElement | null) => {
-        refs.current.topBuffer = node;
+    const setTopBufferRootRef = useCallback((node: HTMLElement | null) => {
+        refs.current.topBufferRoot = node;
     }, []);
 
-    const setBottomBufferRef = useCallback((node: HTMLElement | null) => {
-        refs.current.bottomBuffer = node;
+    const setBottomBufferRootRef = useCallback((node: HTMLElement | null) => {
+        refs.current.bottomBufferRoot = node;
     }, []);
 
-    const setInputRef = useCallback((id: string, node: HTMLElement | null) => {
-        if (node) {
-            refs.current.input.set(id, node);
-        } else {
-            refs.current.input.delete(id);
-        }
-    }, []);
+    const setInputContentRef = useCallback(
+        (id: string, node: HTMLElement | null) => {
+            if (node) {
+                refs.current.inputContent.set(id, node);
+            } else {
+                refs.current.inputContent.delete(id);
+            }
+        },
+        []
+    );
 
     // create context value
     const context = useMemo(
@@ -119,21 +129,21 @@ export function SmoothEditContainer({
             editMode,
             activateEditMode,
             deactivateEditMode,
-            setNavBarRef,
-            setScrollAreaRef,
-            setTopBufferRef,
-            setBottomBufferRef,
-            setInputRef,
+            setNavBarRootRef,
+            setScrollAreaRootRef,
+            setTopBufferRootRef,
+            setBottomBufferRootRef,
+            setInputContentRef,
         }),
         [
             editMode,
             activateEditMode,
             deactivateEditMode,
-            setNavBarRef,
-            setScrollAreaRef,
-            setTopBufferRef,
-            setBottomBufferRef,
-            setInputRef,
+            setNavBarRootRef,
+            setScrollAreaRootRef,
+            setTopBufferRootRef,
+            setBottomBufferRootRef,
+            setInputContentRef,
         ]
     );
 

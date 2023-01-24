@@ -8,28 +8,32 @@ export function wrapSmoothEditInput<Props>(Component: ComponentType<Props>) {
         const id = useId();
 
         // get the context
-        const { editMode, activateEditMode, deactivateEditMode, setInputRef } =
-            useContext(SmoothEditContext);
+        const {
+            editMode,
+            activateEditMode,
+            deactivateEditMode,
+            setInputContentRef,
+        } = useContext(SmoothEditContext);
 
         // wrap the activate function so that it provides the id of this input
-        const activateEditModeTriggeredByThis = useCallback(() => {
+        const activateEditModeWithId = useCallback(() => {
             activateEditMode(id);
         }, [activateEditMode, id]);
 
         // wrap the ref function so that it provides the id of this input
-        const setThisInputRef = useCallback(
+        const setInputContentRefWithId = useCallback(
             (ref: HTMLElement | null) => {
-                setInputRef(id, ref);
+                setInputContentRef(id, ref);
             },
-            [setInputRef, id]
+            [setInputContentRef, id]
         );
 
         // render the input
         return (
             <Component
-                ref={setThisInputRef}
+                contentRef={setInputContentRefWithId}
                 editMode={editMode}
-                activateEditMode={activateEditModeTriggeredByThis}
+                activateEditMode={activateEditModeWithId}
                 deactivateEditMode={deactivateEditMode}
                 {...props}
             />

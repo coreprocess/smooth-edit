@@ -5,13 +5,17 @@ export function wrapSmoothEditNavBar<Props>(Component: ComponentType<Props>) {
     // higher order component that wraps the inner component
     return function SmoothEditNavBar(props: Props) {
         // get the context
-        const { editMode, activateEditMode, deactivateEditMode, setNavBarRef } =
-            useContext(SmoothEditContext);
+        const {
+            editMode,
+            activateEditMode,
+            deactivateEditMode,
+            setNavBarRootRef,
+        } = useContext(SmoothEditContext);
 
         // render the navbar
         return (
             <Component
-                ref={setNavBarRef}
+                rootRef={setNavBarRootRef}
                 editMode={editMode}
                 activateEditMode={activateEditMode}
                 deactivateEditMode={deactivateEditMode}
