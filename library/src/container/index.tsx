@@ -9,10 +9,10 @@ import {
     SmoothEditInputConfig,
     SmoothEditNavBarConfig,
     SmoothEditScrollAreaConfig,
-} from "./config";
-import { SmoothEditContext } from "./context";
-import { detectCssTransitionEnd } from "./utils/css-transition";
-import { fixElementContentPosition } from "./utils/fix-element";
+} from "../config";
+import { SmoothEditContext } from "../context";
+import { fixElementContentPosition } from "../utils/fix-element";
+import { createCssTransitionTracker } from "./transition-tracker/css-transition";
 
 export function SmoothEditContainer({
     children,
@@ -55,7 +55,7 @@ export function SmoothEditContainer({
         );
 
         // detect end of transition
-        detectCssTransitionEnd(scrollAreaRoot, 250, () => {
+        createCssTransitionTracker(scrollAreaRoot, 250, 1000, () => {
             // stop fixation
             stopFixation();
 

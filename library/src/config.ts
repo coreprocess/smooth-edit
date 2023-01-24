@@ -1,26 +1,80 @@
 // configuration shared by all components
 type SmoothEditBaseConfig = {
     trackTransition: {
-        css: {
+        cssTransition: {
             enabled: boolean;
-            timeout: number;
+            timeouts: {
+                idle: number;
+                total: number;
+            };
+        };
+        cssAnimation: {
+            enabled: boolean;
+            timeouts: {
+                idle: number;
+                total: number;
+            };
+        };
+        styleMutations: {
+            enabled: boolean;
+            timeouts: {
+                idle: number;
+                total: number;
+            };
+        };
+        domMutations: {
+            enabled: boolean;
+            timeouts: {
+                idle: number;
+                total: number;
+            };
         };
         custom: {
             enabled: boolean;
-            timeout: number;
+            timeouts: {
+                idle: number;
+                total: number;
+            };
         };
     };
 };
 
 const defaultSmoothEditBaseConfig: SmoothEditBaseConfig = {
     trackTransition: {
-        css: {
+        cssTransition: {
             enabled: true,
-            timeout: 250,
+            timeouts: {
+                idle: 250,
+                total: 1000,
+            },
+        },
+        cssAnimation: {
+            enabled: false,
+            timeouts: {
+                idle: 250,
+                total: 1000,
+            },
+        },
+        styleMutations: {
+            enabled: false,
+            timeouts: {
+                idle: 250,
+                total: 1000,
+            },
+        },
+        domMutations: {
+            enabled: false,
+            timeouts: {
+                idle: 250,
+                total: 1000,
+            },
         },
         custom: {
             enabled: false,
-            timeout: 1000,
+            timeouts: {
+                idle: 250,
+                total: 1000,
+            },
         },
     },
 };
