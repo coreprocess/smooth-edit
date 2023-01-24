@@ -1,7 +1,7 @@
 import React, { ComponentType, useCallback, useContext, useId } from "react";
 import { SmoothEditContext } from "./context";
 
-export function makeSmoothEditInput<Props>(Component: ComponentType<Props>) {
+export function wrapSmoothEditInput<Props>(Component: ComponentType<Props>) {
     // higher order component that wraps the inner component
     return function SmoothEditInput(props: Props) {
         // generate a unique id for this input

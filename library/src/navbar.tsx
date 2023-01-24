@@ -1,7 +1,7 @@
 import React, { ComponentType, useContext } from "react";
 import { SmoothEditContext } from "./context";
 
-export function makeSmoothEditNavBar<Props>(Component: ComponentType<Props>) {
+export function wrapSmoothEditNavBar<Props>(Component: ComponentType<Props>) {
     // higher order component that wraps the inner component
     return function SmoothEditNavBar(props: Props) {
         // get the context

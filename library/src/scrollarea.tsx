@@ -11,7 +11,7 @@ function BottomBuffer() {
     return <div ref={setBottomBufferRef} style={{ display: "flex" }} />;
 }
 
-export function makeSmoothEditScrollArea<Props>(
+export function wrapSmoothEditScrollArea<Props>(
     Component: ComponentType<Props>
 ) {
     // higher order component that wraps the inner component

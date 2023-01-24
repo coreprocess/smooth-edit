@@ -12,7 +12,7 @@ export function detectCssTransitionEnd(
     }
 
     // active transitions and timeouts
-    const transitions = new Map();
+    const transitions = new Map<EventTarget, Set<string>>();
     let timeoutId: number | null = null;
 
     // register start of transition
@@ -21,10 +21,10 @@ export function detectCssTransitionEnd(
             clearTimeout(timeoutId);
             timeoutId = null;
         }
-        if (!transitions.has(event.target)) {
-            transitions.set(event.target, new Set());
+        if (!transitions.has(event.target!)) {
+            transitions.set(event.target!, new Set());
         }
-        transitions.get(event.target).add(event.propertyName);
+        transitions.get(event.target!)!.add(event.propertyName);
     }
 
     // register stop of transition
@@ -33,10 +33,10 @@ export function detectCssTransitionEnd(
             clearTimeout(timeoutId);
             timeoutId = null;
         }
-        if (transitions.has(event.target)) {
-            transitions.get(event.target).delete(event.propertyName);
-            if (transitions.get(event.target).size === 0) {
-                transitions.delete(event.target);
+        if (transitions.has(event.target!)) {
+            transitions.get(event.target!)!.delete(event.propertyName);
+            if (transitions.get(event.target!)!.size === 0) {
+                transitions.delete(event.target!);
             }
         }
         if (transitions.size === 0) {
