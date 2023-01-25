@@ -7,15 +7,26 @@ import React, {
     useId,
 } from "react";
 import { DeepPartial } from "tsdef";
+import { Subtract } from "utility-types";
 import { defaultSmoothEditInputConfig, SmoothEditInputConfig } from "./config";
 import { SmoothEditContext } from "./context";
 
-export function wrapSmoothEditInput<Props>(
+export interface InjectedSmoothEditInputProps {
+    rootRef: React.RefCallback<HTMLElement>;
+    contentRef: React.RefCallback<HTMLElement>;
+    editMode?: boolean;
+    activateEditMode?: () => void;
+    deactivateEditMode?: () => void;
+}
+
+export function wrapSmoothEditInput<Props extends InjectedSmoothEditInputProps>(
     Component: ComponentType<Props>,
     config: DeepPartial<SmoothEditInputConfig>
 ) {
     // higher order component that wraps the inner component
-    return function SmoothEditInput(props: Props) {
+    return function SmoothEditInput(
+        props: Subtract<Props, InjectedSmoothEditInputProps>
+    ) {
         // generate a unique id for this input
         const id = useId();
 
@@ -63,12 +74,12 @@ export function wrapSmoothEditInput<Props>(
         // render the input
         return (
             <Component
+                {...(props as Props)}
                 rootRef={setInputRootRef}
                 contentRef={setInputContentRef}
                 editMode={editMode}
                 activateEditMode={activateEditModeWithId}
                 deactivateEditMode={deactivateEditMode}
-                {...props}
             />
         );
     };

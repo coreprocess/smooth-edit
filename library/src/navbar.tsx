@@ -1,18 +1,30 @@
 import _ from "lodash";
 import React, { ComponentType, useContext, useEffect } from "react";
 import { DeepPartial } from "tsdef";
+import { Subtract } from "utility-types";
 import {
     defaultSmoothEditNavBarConfig,
     SmoothEditNavBarConfig,
 } from "./config";
 import { SmoothEditContext } from "./context";
 
-export function wrapSmoothEditNavBar<Props>(
+export interface InjectedSmoothEditNavBarProps {
+    rootRef: React.RefCallback<HTMLElement>;
+    editMode?: boolean;
+    activateEditMode?: () => void;
+    deactivateEditMode?: () => void;
+}
+
+export function wrapSmoothEditNavBar<
+    Props extends InjectedSmoothEditNavBarProps
+>(
     Component: ComponentType<Props>,
     config: DeepPartial<SmoothEditNavBarConfig>
 ) {
     // higher order component that wraps the inner component
-    return function SmoothEditNavBar(props: Props) {
+    return function SmoothEditNavBar(
+        props: Subtract<Props, InjectedSmoothEditNavBarProps>
+    ) {
         // get the context
         const {
             editMode,
@@ -33,11 +45,11 @@ export function wrapSmoothEditNavBar<Props>(
         // render the navbar
         return (
             <Component
+                {...(props as Props)}
                 rootRef={setNavBarRootElement}
                 editMode={editMode}
                 activateEditMode={activateEditMode}
                 deactivateEditMode={deactivateEditMode}
-                {...props}
             />
         );
     };

@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React, { ComponentType, useContext, useEffect } from "react";
 import { DeepPartial } from "tsdef";
+import { Subtract } from "utility-types";
 import {
     defaultSmoothEditScrollAreaConfig,
     SmoothEditScrollAreaConfig,
@@ -17,12 +18,25 @@ function BottomBuffer() {
     return <div ref={setBottomBufferRootElement} style={{ display: "flex" }} />;
 }
 
-export function wrapSmoothEditScrollArea<Props>(
+export interface InjectedSmoothEditScrollAreaProps {
+    rootRef: React.RefCallback<HTMLElement>;
+    editMode?: boolean;
+    activateEditMode?: () => void;
+    deactivateEditMode?: () => void;
+    SmoothEditTopBuffer: ComponentType;
+    SmoothEditBottomBuffer: ComponentType;
+}
+
+export function wrapSmoothEditScrollArea<
+    Props extends InjectedSmoothEditScrollAreaProps
+>(
     Component: ComponentType<Props>,
     config: DeepPartial<SmoothEditScrollAreaConfig>
 ) {
     // higher order component that wraps the inner component
-    return function SmoothEditScrollArea(props: Props) {
+    return function SmoothEditScrollArea(
+        props: Subtract<Props, InjectedSmoothEditScrollAreaProps>
+    ) {
         // get the context
         const {
             editMode,
@@ -45,13 +59,13 @@ export function wrapSmoothEditScrollArea<Props>(
         // render the scroll area
         return (
             <Component
+                {...(props as Props)}
                 rootRef={setScrollAreaRootElement}
                 editMode={editMode}
                 activateEditMode={activateEditMode}
                 deactivateEditMode={deactivateEditMode}
                 SmoothEditTopBuffer={TopBuffer}
                 SmoothEditBottomBuffer={BottomBuffer}
-                {...props}
             />
         );
     };

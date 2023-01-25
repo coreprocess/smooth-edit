@@ -2,12 +2,11 @@ import { loremIpsum } from "lorem-ipsum";
 import React, { useCallback, useState } from "react";
 import { SmoothEditContainer } from "smooth-edit/dist/container";
 import "./App.css";
-import { ExampleNavBar } from "./components/ExampleNavBar";
-import { ExampleScrollArea } from "./components/ExampleScrollArea";
-import { ExampleTextInput } from "./components/ExampleTextInput";
+import { ExampleNavBar } from "./ExampleNavBar";
+import { ExampleScrollArea } from "./ExampleScrollArea";
+import { ExampleTextInput } from "./ExampleTextInput";
 
 function App() {
-
     const [form, setForm] = useState({
         test1: loremIpsum({ count: 5, units: "sentences" }),
         test2: loremIpsum({ count: 5, units: "sentences" }),
@@ -18,7 +17,7 @@ function App() {
     });
 
     const onFormTest1Change = useCallback(
-        (value) => {
+        (value: string) => {
             setForm({
                 ...form,
                 test1: value,
@@ -28,7 +27,7 @@ function App() {
     );
 
     const onFormTest2Change = useCallback(
-        (value) => {
+        (value: string) => {
             setForm({
                 ...form,
                 test2: value,
@@ -38,7 +37,7 @@ function App() {
     );
 
     const onFormTest3Change = useCallback(
-        (value) => {
+        (value: string) => {
             setForm({
                 ...form,
                 test3: value,
@@ -48,7 +47,7 @@ function App() {
     );
 
     const onFormTest4Change = useCallback(
-        (value) => {
+        (value: string) => {
             setForm({
                 ...form,
                 test4: value,
@@ -58,7 +57,7 @@ function App() {
     );
 
     const onFormTest5Change = useCallback(
-        (value) => {
+        (value: string) => {
             setForm({
                 ...form,
                 test5: value,
@@ -68,7 +67,7 @@ function App() {
     );
 
     const onFormTest6Change = useCallback(
-        (value) => {
+        (value: string) => {
             setForm({
                 ...form,
                 test6: value,
@@ -82,12 +81,30 @@ function App() {
             <SmoothEditContainer>
                 <ExampleNavBar />
                 <ExampleScrollArea>
-                    <ExampleTextInput value={form.test1} onChange={onFormTest1Change} />
-                    <ExampleTextInput value={form.test2} onChange={onFormTest2Change} />
-                    <ExampleTextInput value={form.test3} onChange={onFormTest3Change} />
-                    <ExampleTextInput value={form.test4} onChange={onFormTest4Change} />
-                    <ExampleTextInput value={form.test5} onChange={onFormTest5Change} />
-                    <ExampleTextInput value={form.test6} onChange={onFormTest6Change} />
+                    <ExampleTextInput
+                        value={form.test1}
+                        onChange={onFormTest1Change}
+                    />
+                    <ExampleTextInput
+                        value={form.test2}
+                        onChange={onFormTest2Change}
+                    />
+                    <ExampleTextInput
+                        value={form.test3}
+                        onChange={onFormTest3Change}
+                    />
+                    <ExampleTextInput
+                        value={form.test4}
+                        onChange={onFormTest4Change}
+                    />
+                    <ExampleTextInput
+                        value={form.test5}
+                        onChange={onFormTest5Change}
+                    />
+                    <ExampleTextInput
+                        value={form.test6}
+                        onChange={onFormTest6Change}
+                    />
                 </ExampleScrollArea>
             </SmoothEditContainer>
         </div>
