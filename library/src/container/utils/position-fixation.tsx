@@ -67,7 +67,6 @@ export function createElementContentPositionFixation(
             if (scrollArea.scrollTop > 0) {
                 const scrollDown = Math.min(pushDown, scrollArea.scrollTop);
                 scrollArea.scrollTop -= scrollDown;
-                console.log(scrollArea.scrollTop);
                 pushDown -= scrollDown;
             }
             // increase the top buffer height if needed
