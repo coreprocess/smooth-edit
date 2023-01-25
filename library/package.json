@@ -6,7 +6,6 @@
     "repository": "https://github.com/teamrevin/smooth-edit/tree/main/library",
     "author": "Niklas Salmoukas",
     "license": "MIT",
-    "private": false,
     "scripts": {
         "build": "tsc"
     },
