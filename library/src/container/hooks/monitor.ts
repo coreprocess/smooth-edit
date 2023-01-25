@@ -1,13 +1,13 @@
 import { useCallback, useRef } from "react";
-import { createInvertedPromise } from "../utils/inverted-promise";
-import { mapMap } from "../utils/map-map";
-import { createElementContentPositionFixation } from "./position-fixation";
-import { TransitionTracker } from "./transition-tracker/factory";
-import { createParallelTracker } from "./transition-tracker/parallel";
-import { ConfigRef } from "./use-config";
-import { ElementsRef } from "./use-elements";
+import { createInvertedPromise } from "../../utils/inverted-promise";
+import { mapMap } from "../../utils/map-map";
+import { createElementContentPositionFixation } from "../utils/position-fixation";
+import { TransitionTracker } from "../utils/transition-tracker/factory";
+import { createParallelTracker } from "../utils/transition-tracker/parallel";
+import { ConfigRef } from "./config";
+import { ElementsRef } from "./elements";
 
-export function useMonitorTransition(elements: ElementsRef, config: ConfigRef) {
+export function useMonitor(elements: ElementsRef, config: ConfigRef) {
     // all active trackers if in transition
     const transition = useRef<
         | {

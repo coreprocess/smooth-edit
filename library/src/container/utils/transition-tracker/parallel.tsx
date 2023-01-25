@@ -1,4 +1,4 @@
-import { createInvertedPromise } from "../../utils/inverted-promise";
+import { createInvertedPromise } from "../../../utils/inverted-promise";
 import { createCssAnimationTracker } from "./css-animation";
 import { createCssTransitionTracker } from "./css-transition";
 import { createCustomTracker } from "./custom";

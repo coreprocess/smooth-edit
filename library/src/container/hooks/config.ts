@@ -3,7 +3,7 @@ import {
     SmoothEditInputConfig,
     SmoothEditNavBarConfig,
     SmoothEditScrollAreaConfig,
-} from "../config";
+} from "../../config";
 
 type ConfigData = {
     navBar: SmoothEditNavBarConfig | null;

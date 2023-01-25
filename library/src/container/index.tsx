@@ -1,9 +1,9 @@
 import React, { ReactNode, useMemo } from "react";
 import { SmoothEditContext } from "../context";
-import { useConfig } from "./use-config";
-import { useEditMode } from "./use-edit-mode";
-import { useElements } from "./use-elements";
-import { useMonitorTransition } from "./use-monitor-transition";
+import { useConfig } from "./hooks/config";
+import { useEditMode } from "./hooks/edit-mode";
+import { useElements } from "./hooks/elements";
+import { useMonitor } from "./hooks/monitor";
 
 export function SmoothEditContainer({
     children,
@@ -26,7 +26,7 @@ export function SmoothEditContainer({
         useConfig();
 
     // edit mode transition management
-    const { monitorTransition } = useMonitorTransition(elements, config);
+    const { monitorTransition } = useMonitor(elements, config);
 
     // edit mode management
     const { editMode, activateEditMode, deactivateEditMode } =
