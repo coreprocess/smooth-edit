@@ -13,7 +13,6 @@
     "devDependencies": {
         "@types/lodash": "^4.14.191",
         "@types/react": "^18.0.27",
-        "tsdef": "^0.0.14",
         "typescript": "^4.9.4",
         "utility-types": "^3.10.0"
     },

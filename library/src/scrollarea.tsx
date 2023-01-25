@@ -1,12 +1,12 @@
 import _ from "lodash";
 import React, { ComponentType, useContext, useEffect } from "react";
-import { DeepPartial } from "tsdef";
 import { Subtract } from "utility-types";
 import {
     defaultSmoothEditScrollAreaConfig,
     SmoothEditScrollAreaConfig,
 } from "./config";
 import { SmoothEditContext } from "./context";
+import { DeepPartial } from "./utils/types";
 
 function TopBuffer() {
     const { setTopBufferRootElement } = useContext(SmoothEditContext);

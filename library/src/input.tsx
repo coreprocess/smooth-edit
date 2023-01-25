@@ -6,10 +6,10 @@ import React, {
     useEffect,
     useId,
 } from "react";
-import { DeepPartial } from "tsdef";
 import { Subtract } from "utility-types";
 import { defaultSmoothEditInputConfig, SmoothEditInputConfig } from "./config";
 import { SmoothEditContext } from "./context";
+import { DeepPartial } from "./utils/types";
 
 export interface InjectedSmoothEditInputProps {
     rootRef: React.RefCallback<HTMLElement>;
