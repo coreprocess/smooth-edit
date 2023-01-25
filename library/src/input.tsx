@@ -6,7 +6,6 @@ import React, {
     useEffect,
     useId,
 } from "react";
-import { Subtract } from "utility-types";
 import { defaultSmoothEditInputConfig, SmoothEditInputConfig } from "./config";
 import { SmoothEditContext } from "./context";
 import { DeepPartial } from "./utils/types";
@@ -14,19 +13,17 @@ import { DeepPartial } from "./utils/types";
 export interface InjectedSmoothEditInputProps {
     rootRef: React.RefCallback<HTMLElement>;
     contentRef: React.RefCallback<HTMLElement>;
-    editMode?: boolean;
-    activateEditMode?: () => void;
-    deactivateEditMode?: () => void;
+    editMode: boolean;
+    activateEditMode: () => void;
+    deactivateEditMode: () => void;
 }
 
-export function wrapSmoothEditInput<Props extends InjectedSmoothEditInputProps>(
-    Component: ComponentType<Props>,
+export function wrapSmoothEditInput<OuterProps = object>(
+    Component: ComponentType<OuterProps & InjectedSmoothEditInputProps>,
     config: DeepPartial<SmoothEditInputConfig>
 ) {
     // higher order component that wraps the inner component
-    return function SmoothEditInput(
-        props: Subtract<Props, InjectedSmoothEditInputProps>
-    ) {
+    return function SmoothEditInput(props: OuterProps) {
         // generate a unique id for this input
         const id = useId();
 
@@ -74,7 +71,7 @@ export function wrapSmoothEditInput<Props extends InjectedSmoothEditInputProps>(
         // render the input
         return (
             <Component
-                {...(props as Props)}
+                {...props}
                 rootRef={setInputRootRef}
                 contentRef={setInputContentRef}
                 editMode={editMode}

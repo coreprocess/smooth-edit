@@ -1,6 +1,5 @@
 import _ from "lodash";
 import React, { ComponentType, useContext, useEffect } from "react";
-import { Subtract } from "utility-types";
 import {
     defaultSmoothEditScrollAreaConfig,
     SmoothEditScrollAreaConfig,
@@ -20,23 +19,19 @@ function BottomBuffer() {
 
 export interface InjectedSmoothEditScrollAreaProps {
     rootRef: React.RefCallback<HTMLElement>;
-    editMode?: boolean;
-    activateEditMode?: () => void;
-    deactivateEditMode?: () => void;
+    editMode: boolean;
+    activateEditMode: () => void;
+    deactivateEditMode: () => void;
     SmoothEditTopBuffer: ComponentType;
     SmoothEditBottomBuffer: ComponentType;
 }
 
-export function wrapSmoothEditScrollArea<
-    Props extends InjectedSmoothEditScrollAreaProps
->(
-    Component: ComponentType<Props>,
+export function wrapSmoothEditScrollArea<OuterProps = object>(
+    Component: ComponentType<OuterProps & InjectedSmoothEditScrollAreaProps>,
     config: DeepPartial<SmoothEditScrollAreaConfig>
 ) {
     // higher order component that wraps the inner component
-    return function SmoothEditScrollArea(
-        props: Subtract<Props, InjectedSmoothEditScrollAreaProps>
-    ) {
+    return function SmoothEditScrollArea(props: OuterProps) {
         // get the context
         const {
             editMode,
@@ -59,7 +54,7 @@ export function wrapSmoothEditScrollArea<
         // render the scroll area
         return (
             <Component
-                {...(props as Props)}
+                {...props}
                 rootRef={setScrollAreaRootElement}
                 editMode={editMode}
                 activateEditMode={activateEditMode}

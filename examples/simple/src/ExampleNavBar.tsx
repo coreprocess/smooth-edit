@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 import { wrapSmoothEditNavBar } from "smooth-edit/dist/navbar";
 
-export const ExampleNavBar = wrapSmoothEditNavBar<{
-    editMode: boolean;
-    deactivateEditMode: () => void;
-    rootRef: React.RefCallback<HTMLDivElement>;
-}>(function ({ editMode, deactivateEditMode, rootRef }) {
+export const ExampleNavBar = wrapSmoothEditNavBar(function ({
+    editMode,
+    deactivateEditMode,
+    rootRef,
+}) {
     const onClick = useCallback(() => {
         deactivateEditMode();
     }, [deactivateEditMode]);
@@ -28,4 +28,5 @@ export const ExampleNavBar = wrapSmoothEditNavBar<{
             {!editMode ? "View Mode" : "Edit Mode"}
         </div>
     );
-}, {});
+},
+{});

@@ -6,10 +6,6 @@ import "./ExampleTextInput.css";
 export const ExampleTextInput = wrapSmoothEditInput<{
     value: string;
     onChange: (value: string) => void;
-    editMode: boolean;
-    activateEditMode: () => void;
-    rootRef: React.RefCallback<HTMLDivElement>;
-    contentRef: React.RefCallback<HTMLDivElement>;
 }>(function ({
     value,
     onChange,
