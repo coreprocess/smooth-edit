@@ -16,7 +16,7 @@ export function useRefWithForwarding<Value>(
         () => {
             // the actual forwarding setter function
             function setRef(node: Value | null) {
-                innerRef.current = node;
+                setRef.current = innerRef.current = node;
                 for (const ref of refs) {
                     if (typeof ref === "function") {
                         ref(node);

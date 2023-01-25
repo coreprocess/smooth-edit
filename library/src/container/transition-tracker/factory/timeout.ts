@@ -7,8 +7,8 @@ export function timeoutManagementFactory({
     totalPeriod: number;
     onTimeout: () => void;
 }) {
-    let idleTimeout: number | null = null;
-    let totalTimeout: number | null = null;
+    let idleTimeout: ReturnType<typeof setTimeout> | null = null;
+    let totalTimeout: ReturnType<typeof setTimeout> | null = null;
 
     function activateIdleTimeout() {
         if (idleTimeout === null) {

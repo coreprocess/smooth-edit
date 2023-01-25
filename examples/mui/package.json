@@ -1,9 +1,9 @@
 {
-    "name": "smooth-edit-example-mui-rhf",
+    "name": "smooth-edit-example-mui",
     "version": "1.0.0",
-    "description": "MUI React Hook Form example",
+    "description": "MUI example",
     "main": "index.js",
-    "repository": "https://github.com/teamrevin/smooth-edit/examples/mui-rhf",
+    "repository": "https://github.com/teamrevin/smooth-edit/examples/mui",
     "author": "Niklas Salmoukas",
     "license": "COMMERCIAL",
     "private": true,
