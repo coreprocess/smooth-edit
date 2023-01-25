@@ -15,7 +15,7 @@ export const ExampleTextInput = wrapSmoothEditInput<{
     contentRef,
 }) {
     // reference to the root element
-    const ref = useRefWithForwarding<HTMLDivElement>(null, [
+    const ref = useRefWithForwarding<HTMLDivElement | null>(null, [
         rootRef,
         contentRef,
     ]);

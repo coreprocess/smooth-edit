@@ -32,6 +32,6 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "smooth-edit": "1.0.2",
-    "use-ref-with-forwarding": "^1.0.0"
+    "use-ref-with-forwarding": "^1.0.1"
   }
 }
