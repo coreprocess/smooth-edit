@@ -46,6 +46,13 @@ export function wrapSmoothEditInput<Props>(
         }, [activateEditMode, id]);
 
         // wrap the ref function so that it provides the id of this input
+        const setInputRootRef = useCallback(
+            (ref: HTMLElement | null) => {
+                setInputRootElement(id, ref);
+            },
+            [setInputRootElement, id]
+        );
+
         const setInputContentRef = useCallback(
             (ref: HTMLElement | null) => {
                 setInputContentElement(id, ref);
@@ -56,7 +63,7 @@ export function wrapSmoothEditInput<Props>(
         // render the input
         return (
             <Component
-                rootRef={setInputRootElement}
+                rootRef={setInputRootRef}
                 contentRef={setInputContentRef}
                 editMode={editMode}
                 activateEditMode={activateEditModeWithId}
