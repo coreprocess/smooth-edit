@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "author": "Niklas Salmoukas",
     "private": true,
+    "scripts": {
+        "start": "exit 0",
+        "build": "exit 0"
+    },
     "devDependencies": {
         "typescript": "^4.9.4"
     }

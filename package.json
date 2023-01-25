@@ -4,6 +4,9 @@
         "library",
         "examples/*"
     ],
+    "scripts": {
+        "build": "yarn workspaces foreach --verbose --topological-dev run build"
+    },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.49.0",
         "@typescript-eslint/parser": "^5.49.0",
