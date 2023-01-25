@@ -1,10 +1,10 @@
-import _ from "lodash";
 import React, { ComponentType, useContext, useEffect } from "react";
 import {
     defaultSmoothEditScrollAreaConfig,
     SmoothEditScrollAreaConfig,
 } from "./config";
 import { SmoothEditContext } from "./context";
+import { merge } from "./utils/deep-merge";
 import { DeepPartial } from "./utils/types";
 
 function TopBuffer() {
@@ -44,7 +44,10 @@ export function wrapSmoothEditScrollArea<OuterProps = object>(
         // apply the config to the context
         useEffect(() => {
             setScrollAreaConfig(
-                _.merge({}, defaultSmoothEditScrollAreaConfig, config)
+                merge(
+                    defaultSmoothEditScrollAreaConfig,
+                    config
+                ) as SmoothEditScrollAreaConfig
             );
             return () => {
                 setScrollAreaConfig(null);

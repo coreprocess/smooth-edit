@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, {
     ComponentType,
     useCallback,
@@ -8,6 +7,7 @@ import React, {
 } from "react";
 import { defaultSmoothEditInputConfig, SmoothEditInputConfig } from "./config";
 import { SmoothEditContext } from "./context";
+import { merge } from "./utils/deep-merge";
 import { DeepPartial } from "./utils/types";
 
 export interface InjectedSmoothEditInputProps {
@@ -41,7 +41,10 @@ export function wrapSmoothEditInput<OuterProps = object>(
         useEffect(() => {
             setInputConfig(
                 id,
-                _.merge({}, defaultSmoothEditInputConfig, config)
+                merge(
+                    defaultSmoothEditInputConfig,
+                    config
+                ) as SmoothEditInputConfig
             );
             return () => {
                 setInputConfig(id, null);

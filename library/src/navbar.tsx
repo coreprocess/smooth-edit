@@ -1,10 +1,10 @@
-import _ from "lodash";
 import React, { ComponentType, useContext, useEffect } from "react";
 import {
     defaultSmoothEditNavBarConfig,
     SmoothEditNavBarConfig,
 } from "./config";
 import { SmoothEditContext } from "./context";
+import { merge } from "./utils/deep-merge";
 import { DeepPartial } from "./utils/types";
 
 export interface InjectedSmoothEditNavBarProps {
@@ -31,7 +31,12 @@ export function wrapSmoothEditNavBar<OuterProps = object>(
 
         // apply the config to the context
         useEffect(() => {
-            setNavBarConfig(_.merge({}, defaultSmoothEditNavBarConfig, config));
+            setNavBarConfig(
+                merge(
+                    defaultSmoothEditNavBarConfig,
+                    config
+                ) as SmoothEditNavBarConfig
+            );
             return () => {
                 setNavBarConfig(null);
             };
