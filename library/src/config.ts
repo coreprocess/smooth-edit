@@ -3,38 +3,28 @@ type SmoothEditBaseConfig = {
     trackTransition: {
         cssTransition: {
             enabled: boolean;
-            timeouts: {
-                idle: number;
-                total: number;
-            };
+            idleTimeout: number;
+            totalTimeout: number;
         };
         cssAnimation: {
             enabled: boolean;
-            timeouts: {
-                idle: number;
-                total: number;
-            };
+            idleTimeout: number;
+            totalTimeout: number;
         };
         styleMutations: {
             enabled: boolean;
-            timeouts: {
-                idle: number;
-                total: number;
-            };
+            idleTimeout: number;
+            totalTimeout: number;
         };
         domMutations: {
             enabled: boolean;
-            timeouts: {
-                idle: number;
-                total: number;
-            };
+            idleTimeout: number;
+            totalTimeout: number;
         };
         custom: {
             enabled: boolean;
-            timeouts: {
-                idle: number;
-                total: number;
-            };
+            idleTimeout: number;
+            totalTimeout: number;
         };
     };
 };
@@ -43,38 +33,28 @@ const defaultSmoothEditBaseConfig: SmoothEditBaseConfig = {
     trackTransition: {
         cssTransition: {
             enabled: true,
-            timeouts: {
-                idle: 250,
-                total: 1000,
-            },
+            idleTimeout: 250,
+            totalTimeout: 1000,
         },
         cssAnimation: {
             enabled: false,
-            timeouts: {
-                idle: 250,
-                total: 1000,
-            },
+            idleTimeout: 250,
+            totalTimeout: 1000,
         },
         styleMutations: {
             enabled: false,
-            timeouts: {
-                idle: 250,
-                total: 1000,
-            },
+            idleTimeout: 250,
+            totalTimeout: 1000,
         },
         domMutations: {
             enabled: false,
-            timeouts: {
-                idle: 250,
-                total: 1000,
-            },
+            idleTimeout: 250,
+            totalTimeout: 1000,
         },
         custom: {
             enabled: false,
-            timeouts: {
-                idle: 250,
-                total: 1000,
-            },
+            idleTimeout: 250,
+            totalTimeout: 1000,
         },
     },
 };
