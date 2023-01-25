@@ -11,11 +11,11 @@
         "build": "tsc"
     },
     "devDependencies": {
-        "@types/react": "^18.0.27",
+        "@types/react": "*",
         "typescript": "^4.9.4"
     },
-    "dependencies": {
-        "react": "^18.2.0"
+    "peerDependencies": {
+        "react": "*"
     },
     "files": [
         "/dist"
