@@ -26,11 +26,16 @@ export function SmoothEditContainer({
         useConfig();
 
     // edit mode transition management
-    const { fixateInputContent } = useTransition(elements, config);
+    const { fixateInputContent, resetScrollAreaBuffers } = useTransition(
+        elements,
+        config
+    );
 
     // edit mode management
-    const { editMode, activateEditMode, deactivateEditMode } =
-        useEditMode(fixateInputContent);
+    const { editMode, activateEditMode, deactivateEditMode } = useEditMode(
+        fixateInputContent,
+        resetScrollAreaBuffers
+    );
 
     // create context value
     const context = useMemo(

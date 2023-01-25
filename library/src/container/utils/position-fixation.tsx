@@ -25,8 +25,8 @@ export function createElementContentPositionFixation(
     topBuffer: HTMLElement | null,
     bottomBuffer: HTMLElement | null
 ) {
-    // flag to cancel the fixation
-    let cancelFlag = false;
+    // flag to stop the fixation
+    let stopFlag = false;
 
     // get start content position of input element
     let startPosition = input
@@ -35,8 +35,8 @@ export function createElementContentPositionFixation(
 
     // start animation
     requestAnimationFrame(function nextFrame() {
-        // check if we need to cancel
-        if (cancelFlag) {
+        // check if we need to stop
+        if (stopFlag) {
             return;
         }
 
@@ -160,8 +160,8 @@ export function createElementContentPositionFixation(
         }
     }
 
-    function cancel() {
-        cancelFlag = true;
+    function stop() {
+        stopFlag = true;
     }
 
     return {
@@ -169,6 +169,6 @@ export function createElementContentPositionFixation(
         setScrollArea,
         setTopBuffer,
         setBottomBuffer,
-        cancel,
+        stop,
     };
 }

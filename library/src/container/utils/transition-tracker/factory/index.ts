@@ -1,4 +1,5 @@
 import { logDebug } from "../../../../logging";
+import { createInvertedPromise } from "../../../../utils/inverted-promise";
 import { activeTransitionManagementFactory } from "./active-transition";
 import { EventListenerManagementFactory } from "./event-listener";
 import { timeoutManagementFactory } from "./timeout";
@@ -7,14 +8,14 @@ export interface CreateTransitionTracker {
     (
         element: HTMLElement | null,
         idleTimeout: number,
-        totalTimeout: number,
-        onEnd: () => void
+        totalTimeout: number
     ): TransitionTracker;
 }
 
 export type TransitionTracker = {
     setElement: (element: HTMLElement | null) => void;
-    cancel: () => void;
+    stop: () => void;
+    promise: Promise<void>;
 };
 
 export function transitionTrackerFactory(
@@ -24,9 +25,11 @@ export function transitionTrackerFactory(
     return function createTransitionTracker(
         element: HTMLElement | null,
         idleTimeout: number,
-        totalTimeout: number,
-        onEnd: () => void
+        totalTimeout: number
     ): TransitionTracker {
+        // create promise
+        const [promise, resolve] = createInvertedPromise<void>();
+
         // timeout management
         const {
             activateIdleTimeout,
@@ -72,7 +75,7 @@ export function transitionTrackerFactory(
             if (element !== null) {
                 unregisterEventListener(element);
             }
-            onEnd();
+            resolve();
         }
 
         // transition tracker interface
@@ -90,17 +93,19 @@ export function transitionTrackerFactory(
             }
         }
 
-        function cancel() {
+        function stop() {
             clearIdleTimeout();
             clearTotalTimeout();
             if (element !== null) {
                 unregisterEventListener(element);
             }
+            resolve();
         }
 
         return {
             setElement,
-            cancel,
+            stop,
+            promise,
         };
     };
 }

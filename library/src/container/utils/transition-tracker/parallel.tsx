@@ -1,4 +1,3 @@
-import { createInvertedPromise } from "../../../utils/inverted-promise";
 import { createCssAnimationTracker } from "./css-animation";
 import { createCssTransitionTracker } from "./css-transition";
 import { createCustomTracker } from "./custom";
@@ -34,8 +33,7 @@ export function createParallelTracker(
             idleTimeout: number;
             totalTimeout: number;
         };
-    },
-    onEnd: () => void
+    }
 ): TransitionTracker {
     // tracker creator functions
     const creators = {
@@ -49,37 +47,36 @@ export function createParallelTracker(
     // initialize trackers
     const trackers = Object.entries(config)
         .filter(([, { enabled }]) => enabled)
-        .map(([type, { idleTimeout, totalTimeout }]) => {
-            const [promise, onItemEnd] = createInvertedPromise<void>();
-            return {
-                promise,
-                interface: creators[type as keyof typeof creators](
-                    element,
-                    idleTimeout,
-                    totalTimeout,
-                    onItemEnd
-                ),
-            };
-        });
-
-    // wait for end of all trackers
-    Promise.all(trackers.map(({ promise }) => promise)).then(onEnd);
+        .map(([type, { idleTimeout, totalTimeout }]) =>
+            creators[type as keyof typeof creators](
+                element,
+                idleTimeout,
+                totalTimeout
+            )
+        );
 
     // tracker interface
     function setElement(element: HTMLElement | null): void {
-        trackers.forEach(({ interface: tracker }) => {
+        trackers.forEach((tracker) => {
             tracker.setElement(element);
         });
     }
 
-    function cancel(): void {
-        trackers.forEach(({ interface: tracker }) => {
-            tracker.cancel();
+    function stop(): void {
+        trackers.forEach((tracker) => {
+            tracker.stop();
         });
     }
 
+    const promise = Promise.all(trackers.map(({ promise }) => promise)).then(
+        () => {
+            void 0;
+        }
+    );
+
     return {
         setElement,
-        cancel,
+        stop,
+        promise,
     };
 }

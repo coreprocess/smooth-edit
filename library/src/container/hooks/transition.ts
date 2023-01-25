@@ -1,6 +1,5 @@
 import { useCallback, useRef } from "react";
 import { logDebug, logError, logWarn } from "../../logging";
-import { createInvertedPromise } from "../../utils/inverted-promise";
 import { mapMap } from "../../utils/map-map";
 import { createElementContentPositionFixation } from "../utils/position-fixation";
 import { TransitionTracker } from "../utils/transition-tracker/factory";
@@ -9,35 +8,32 @@ import { ConfigRef } from "./config";
 import { ElementsRef } from "./elements";
 
 export function useTransition(elements: ElementsRef, config: ConfigRef) {
-    // all active trackers if in transition
+    // all transition trackers for input content fixation
     const tracker = useRef<
         | {
-              navBar: {
-                  interface: TransitionTracker;
-                  promise: Promise<void>;
-              };
-              scrollArea: {
-                  interface: TransitionTracker;
-                  promise: Promise<void>;
-              };
-              input: Map<
-                  string,
-                  {
-                      interface: TransitionTracker;
-                      promise: Promise<void>;
-                  }
-              >;
+              navBar: TransitionTracker;
+              scrollArea: TransitionTracker;
+              input: Map<string, TransitionTracker>;
           }
         | false
     >(false);
 
+    // cancellation of input content fixation
+    const cancelInputContentFixation = useCallback(() => {
+        if (!tracker.current) {
+            return;
+        }
+        tracker.current.navBar.stop();
+        tracker.current.scrollArea.stop();
+        tracker.current.input.forEach((input) => input.stop());
+        tracker.current = false;
+    }, []);
+
     // input content fixation routing
     const fixateInputContent = useCallback(
         (id: string) => {
-            // skip if already in transition
-            if (tracker.current) {
-                return;
-            }
+            // cancel any pending input content fixation
+            cancelInputContentFixation();
 
             // get config
             const {
@@ -76,42 +72,21 @@ export function useTransition(elements: ElementsRef, config: ConfigRef) {
 
             // create all trackers
             tracker.current = {
-                navBar: (() => {
-                    const [promise, resolve] = createInvertedPromise<void>();
-                    return {
-                        promise,
-                        interface: createParallelTracker(
-                            navBarRoot,
-                            navBarConfig.trackTransition,
-                            resolve
-                        ),
-                    };
-                })(),
-                scrollArea: (() => {
-                    const [promise, resolve] = createInvertedPromise<void>();
-                    return {
-                        promise,
-                        interface: createParallelTracker(
-                            scrollAreaRoot,
-                            scrollAreaConfig.trackTransition,
-                            resolve
-                        ),
-                    };
-                })(),
-                input: mapMap(inputConfig, (id, config) => {
-                    const [promise, resolve] = createInvertedPromise<void>();
-                    return [
-                        id,
-                        {
-                            promise,
-                            interface: createParallelTracker(
-                                inputRoot.get(id) ?? null,
-                                config.trackTransition,
-                                resolve
-                            ),
-                        },
-                    ];
-                }),
+                navBar: createParallelTracker(
+                    navBarRoot,
+                    navBarConfig.trackTransition
+                ),
+                scrollArea: createParallelTracker(
+                    scrollAreaRoot,
+                    scrollAreaConfig.trackTransition
+                ),
+                input: mapMap(inputConfig, (id, config) => [
+                    id,
+                    createParallelTracker(
+                        inputRoot.get(id) ?? null,
+                        config.trackTransition
+                    ),
+                ]),
             };
 
             // fix element content position
@@ -129,14 +104,14 @@ export function useTransition(elements: ElementsRef, config: ConfigRef) {
                 if (!tracker.current) {
                     return;
                 }
-                tracker.current.navBar.interface.setElement(node);
+                tracker.current.navBar.setElement(node);
             }
 
             function onNewScrollAreaRoot(node: HTMLElement | null) {
                 if (!tracker.current) {
                     return;
                 }
-                tracker.current.scrollArea.interface.setElement(node);
+                tracker.current.scrollArea.setElement(node);
                 fixation.setScrollArea(node);
             }
 
@@ -163,7 +138,7 @@ export function useTransition(elements: ElementsRef, config: ConfigRef) {
                     logWarn("could not forward new input root to tracker");
                     return;
                 }
-                input.interface.setElement(node);
+                input.setElement(node);
             }
 
             function onNewInputContent(
@@ -196,8 +171,8 @@ export function useTransition(elements: ElementsRef, config: ConfigRef) {
                     (input) => input.promise
                 ),
             ]).then(() => {
-                // cancel element content position fixation
-                fixation.cancel();
+                // stop element content position fixation
+                fixation.stop();
 
                 // remove all tracker
                 tracker.current = false;
@@ -223,10 +198,28 @@ export function useTransition(elements: ElementsRef, config: ConfigRef) {
                 logDebug("transition ended");
             });
         },
-        [elements, config]
+        [cancelInputContentFixation, elements, config]
     );
+
+    // reset scroll area buffers
+    const resetScrollAreaBuffers = useCallback(() => {
+        // cancel any active input content fixation
+        cancelInputContentFixation();
+
+        // get refs to elements
+        const { topBufferRoot, bottomBufferRoot } = elements.current;
+        if (!topBufferRoot || !bottomBufferRoot) {
+            logWarn("could not find element refs for all relevant components");
+            return;
+        }
+
+        // reset scroll area buffers
+        topBufferRoot.style.height = "0px";
+        bottomBufferRoot.style.height = "0px";
+    }, [cancelInputContentFixation, elements]);
 
     return {
         fixateInputContent,
+        resetScrollAreaBuffers,
     };
 }
