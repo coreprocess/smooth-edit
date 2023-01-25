@@ -21,22 +21,26 @@ export function useConfig() {
     });
 
     const setNavBarConfig = useCallback(
-        (navBarConfig: SmoothEditNavBarConfig) => {
+        (navBarConfig: SmoothEditNavBarConfig | null) => {
             config.current.navBar = navBarConfig;
         },
         []
     );
 
     const setScrollAreaConfig = useCallback(
-        (scrollAreaConfig: SmoothEditScrollAreaConfig) => {
+        (scrollAreaConfig: SmoothEditScrollAreaConfig | null) => {
             config.current.scrollArea = scrollAreaConfig;
         },
         []
     );
 
     const setInputConfig = useCallback(
-        (id: string, inputConfig: SmoothEditInputConfig) => {
-            config.current.input.set(id, inputConfig);
+        (id: string, inputConfig: SmoothEditInputConfig | null) => {
+            if (inputConfig) {
+                config.current.input.set(id, inputConfig);
+            } else {
+                config.current.input.delete(id);
+            }
         },
         []
     );

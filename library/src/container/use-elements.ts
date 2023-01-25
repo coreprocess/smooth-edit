@@ -1,4 +1,5 @@
 import { MutableRefObject, useCallback, useRef } from "react";
+import { EventEmitter } from "eventemitter3";
 
 type ElementsData = {
     navBarRoot: HTMLElement | null;
@@ -7,6 +8,14 @@ type ElementsData = {
     bottomBufferRoot: HTMLElement | null;
     inputRoot: Map<string, HTMLElement>;
     inputContent: Map<string, HTMLElement>;
+    events: EventEmitter<
+        | "navBarRoot"
+        | "scrollAreaRoot"
+        | "topBufferRoot"
+        | "bottomBufferRoot"
+        | "inputRoot"
+        | "inputContent"
+    >;
 };
 
 export type ElementsRef = MutableRefObject<ElementsData>;
@@ -19,23 +28,28 @@ export function useElements() {
         bottomBufferRoot: null,
         inputRoot: new Map(),
         inputContent: new Map(),
+        events: new EventEmitter(),
     });
 
     const setNavBarRootElement = useCallback((node: HTMLElement | null) => {
         elements.current.navBarRoot = node;
+        elements.current.events.emit("navBarRoot", node);
     }, []);
 
     const setScrollAreaRootElement = useCallback((node: HTMLElement | null) => {
         elements.current.scrollAreaRoot = node;
+        elements.current.events.emit("scrollAreaRoot", node);
     }, []);
 
     const setTopBufferRootElement = useCallback((node: HTMLElement | null) => {
         elements.current.topBufferRoot = node;
+        elements.current.events.emit("topBufferRoot", node);
     }, []);
 
     const setBottomBufferRootElement = useCallback(
         (node: HTMLElement | null) => {
             elements.current.bottomBufferRoot = node;
+            elements.current.events.emit("bottomBufferRoot", node);
         },
         []
     );
@@ -47,6 +61,7 @@ export function useElements() {
             } else {
                 elements.current.inputRoot.delete(id);
             }
+            elements.current.events.emit("inputRoot", id, node);
         },
         []
     );
@@ -58,6 +73,7 @@ export function useElements() {
             } else {
                 elements.current.inputContent.delete(id);
             }
+            elements.current.events.emit("inputContent", id, node);
         },
         []
     );

@@ -15,9 +15,9 @@ type SmoothEditContext = {
     setBottomBufferRootElement: (node: HTMLElement | null) => void;
     setInputRootElement: (id: string, node: HTMLElement | null) => void;
     setInputContentElement: (id: string, node: HTMLElement | null) => void;
-    setNavBarConfig: (config: SmoothEditNavBarConfig) => void;
-    setScrollAreaConfig: (config: SmoothEditScrollAreaConfig) => void;
-    setInputConfig: (id: string, config: SmoothEditInputConfig) => void;
+    setNavBarConfig: (config: SmoothEditNavBarConfig | null) => void;
+    setScrollAreaConfig: (config: SmoothEditScrollAreaConfig | null) => void;
+    setInputConfig: (id: string, config: SmoothEditInputConfig | null) => void;
 };
 
 export const SmoothEditContext = createContext<SmoothEditContext>({
@@ -39,9 +39,9 @@ export const SmoothEditContext = createContext<SmoothEditContext>({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     setInputContentElement: (id: string, node: HTMLElement | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    setNavBarConfig: (config: SmoothEditNavBarConfig) => {},
+    setNavBarConfig: (config: SmoothEditNavBarConfig | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    setScrollAreaConfig: (config: SmoothEditScrollAreaConfig) => {},
+    setScrollAreaConfig: (config: SmoothEditScrollAreaConfig | null) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    setInputConfig: (id: string, config: SmoothEditInputConfig) => {},
+    setInputConfig: (id: string, config: SmoothEditInputConfig | null) => {},
 });

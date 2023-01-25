@@ -35,6 +35,9 @@ export function wrapSmoothEditInput<Props>(
                 id,
                 _.merge({}, defaultSmoothEditInputConfig, config)
             );
+            return () => {
+                setInputConfig(id, null);
+            };
         }, [setInputConfig, id]);
 
         // wrap the activate function so that it provides the id of this input

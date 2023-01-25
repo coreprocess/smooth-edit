@@ -1,32 +1,63 @@
 // determindes the viewport Y position of the content of an element
-function getElementContentViewportPositionY(element: HTMLElement) {
+function getElementContentViewportPositionY(
+    element: HTMLElement,
+    where: "top" | "middle" | "bottom"
+): number {
     const rect = element.getBoundingClientRect();
     const styles = window.getComputedStyle(element);
-    return rect.top + parseFloat(styles.paddingTop);
+    switch (where) {
+        case "top":
+            return rect.top + parseFloat(styles.paddingTop);
+        case "middle":
+            return rect.top + rect.height / 2;
+        case "bottom":
+            return rect.bottom - parseFloat(styles.paddingBottom);
+    }
 }
 
 // fixes the position of the content of an element in the viewport until stoped
-export function fixElementContentPosition(
-    element: HTMLElement,
-    scrollArea: HTMLElement,
-    topBuffer: HTMLElement,
-    bottomBuffer: HTMLElement
+export function createElementContentPositionFixation(
+    input: HTMLElement | null,
+    where: "top" | "middle" | "bottom",
+    scrollArea: HTMLElement | null,
+    topBuffer: HTMLElement | null,
+    bottomBuffer: HTMLElement | null
 ) {
     // flag to cancel the fixation
-    let cancel = false;
+    let cancelFlag = false;
 
-    // get start content position of element
-    const startPosition = getElementContentViewportPositionY(element);
+    // get start content position of input element
+    let startPosition = input
+        ? getElementContentViewportPositionY(input, where)
+        : null;
 
     // start animation
     requestAnimationFrame(function nextFrame() {
         // check if we need to cancel
-        if (cancel) {
+        if (cancelFlag) {
             return;
         }
 
-        // get current content position of element
-        const currentPosition = getElementContentViewportPositionY(element);
+        // skip frame if input element is missing
+        if (!input) {
+            return requestAnimationFrame(nextFrame);
+        }
+
+        // check if we need to get start position
+        if (startPosition === null) {
+            startPosition = getElementContentViewportPositionY(input, where);
+        }
+
+        // skip frame if scroll area or buffer areas are missing
+        if (!scrollArea || !topBuffer || !bottomBuffer) {
+            return requestAnimationFrame(nextFrame);
+        }
+
+        // get current content position of input element
+        const currentPosition = getElementContentViewportPositionY(
+            input,
+            where
+        );
 
         // check if we need to push the element down
         if (currentPosition < startPosition) {
@@ -91,8 +122,32 @@ export function fixElementContentPosition(
         requestAnimationFrame(nextFrame);
     });
 
-    // return function to stop the fixation
-    return function stop() {
-        cancel = true;
+    // interface
+    function setInput(newInput: HTMLElement | null) {
+        input = newInput;
+    }
+
+    function setScrollArea(newScrollArea: HTMLElement | null) {
+        scrollArea = newScrollArea;
+    }
+
+    function setTopBuffer(newTopBuffer: HTMLElement | null) {
+        topBuffer = newTopBuffer;
+    }
+
+    function setBottomBuffer(newBottomBuffer: HTMLElement | null) {
+        bottomBuffer = newBottomBuffer;
+    }
+
+    function cancel() {
+        cancelFlag = true;
+    }
+
+    return {
+        setInput,
+        setScrollArea,
+        setTopBuffer,
+        setBottomBuffer,
+        cancel,
     };
 }

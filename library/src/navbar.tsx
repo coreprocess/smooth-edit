@@ -25,6 +25,9 @@ export function wrapSmoothEditNavBar<Props>(
         // apply the config to the context
         useEffect(() => {
             setNavBarConfig(_.merge({}, defaultSmoothEditNavBarConfig, config));
+            return () => {
+                setNavBarConfig(null);
+            };
         }, [setNavBarConfig]);
 
         // render the navbar

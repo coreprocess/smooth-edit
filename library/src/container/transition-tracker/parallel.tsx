@@ -1,3 +1,4 @@
+import { createInvertedPromise } from "../../utils/inverted-promise";
 import { createCssAnimationTracker } from "./css-animation";
 import { createCssTransitionTracker } from "./css-transition";
 import { createCustomTracker } from "./custom";
@@ -49,18 +50,14 @@ export function createParallelTracker(
     const trackers = Object.entries(config)
         .filter(([, { enabled }]) => enabled)
         .map(([type, { idleTimeout, totalTimeout }]) => {
-            let onItemEnd: (() => void) | null = null;
-            const promise = new Promise<undefined>((resolve) => {
-                onItemEnd = resolve as () => void;
-            });
+            const [promise, onItemEnd] = createInvertedPromise<void>();
             return {
                 promise,
                 interface: creators[type as keyof typeof creators](
                     element,
                     idleTimeout,
                     totalTimeout,
-                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    onItemEnd!
+                    onItemEnd
                 ),
             };
         });

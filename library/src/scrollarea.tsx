@@ -37,6 +37,9 @@ export function wrapSmoothEditScrollArea<Props>(
             setScrollAreaConfig(
                 _.merge({}, defaultSmoothEditScrollAreaConfig, config)
             );
+            return () => {
+                setScrollAreaConfig(null);
+            };
         }, [setScrollAreaConfig]);
 
         // render the scroll area
