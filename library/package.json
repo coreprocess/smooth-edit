@@ -1,6 +1,6 @@
 {
     "name": "smooth-edit",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Smooth edit mode transition",
     "main": "dist/index.js",
     "repository": "https://github.com/teamrevin/smooth-edit/tree/main/library",
