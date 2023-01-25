@@ -8,9 +8,9 @@ import { createParallelTracker } from "../utils/transition-tracker/parallel";
 import { ConfigRef } from "./config";
 import { ElementsRef } from "./elements";
 
-export function useMonitor(elements: ElementsRef, config: ConfigRef) {
+export function useTransition(elements: ElementsRef, config: ConfigRef) {
     // all active trackers if in transition
-    const transition = useRef<
+    const tracker = useRef<
         | {
               navBar: {
                   interface: TransitionTracker;
@@ -31,11 +31,11 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
         | false
     >(false);
 
-    // monitoring function
-    const monitorTransition = useCallback(
+    // input content fixation routing
+    const fixateInputContent = useCallback(
         (id: string) => {
             // skip if already in transition
-            if (transition.current) {
+            if (tracker.current) {
                 return;
             }
 
@@ -75,7 +75,7 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
             }
 
             // create all trackers
-            transition.current = {
+            tracker.current = {
                 navBar: (() => {
                     const [promise, resolve] = createInvertedPromise<void>();
                     return {
@@ -126,39 +126,39 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
 
             // forward element ref updates
             function onNewNavBarRoot(node: HTMLElement | null) {
-                if (!transition.current) {
+                if (!tracker.current) {
                     return;
                 }
-                transition.current.navBar.interface.setElement(node);
+                tracker.current.navBar.interface.setElement(node);
             }
 
             function onNewScrollAreaRoot(node: HTMLElement | null) {
-                if (!transition.current) {
+                if (!tracker.current) {
                     return;
                 }
-                transition.current.scrollArea.interface.setElement(node);
+                tracker.current.scrollArea.interface.setElement(node);
                 fixation.setScrollArea(node);
             }
 
             function onNewTopBufferRoot(node: HTMLElement | null) {
-                if (!transition.current) {
+                if (!tracker.current) {
                     return;
                 }
                 fixation.setTopBuffer(node);
             }
 
             function onNewBottomBufferRoot(node: HTMLElement | null) {
-                if (!transition.current) {
+                if (!tracker.current) {
                     return;
                 }
                 fixation.setBottomBuffer(node);
             }
 
             function onNewInputRoot(forId: string, node: HTMLElement | null) {
-                if (!transition.current) {
+                if (!tracker.current) {
                     return;
                 }
-                const input = transition.current.input.get(forId);
+                const input = tracker.current.input.get(forId);
                 if (!input) {
                     logWarn("could not forward new input root to tracker");
                     return;
@@ -170,7 +170,7 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
                 forId: string,
                 node: HTMLElement | null
             ) {
-                if (!transition.current) {
+                if (!tracker.current) {
                     return;
                 }
                 if (forId === id) {
@@ -190,9 +190,9 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
 
             // detect end of transition
             Promise.all([
-                transition.current.navBar.promise,
-                transition.current.scrollArea.promise,
-                ...Array.from(transition.current.input.values()).map(
+                tracker.current.navBar.promise,
+                tracker.current.scrollArea.promise,
+                ...Array.from(tracker.current.input.values()).map(
                     (input) => input.promise
                 ),
             ]).then(() => {
@@ -200,7 +200,7 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
                 fixation.cancel();
 
                 // remove all tracker
-                transition.current = false;
+                tracker.current = false;
 
                 // remove element ref updates
                 elements.current.events.off("navBarRoot", onNewNavBarRoot);
@@ -227,6 +227,6 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
     );
 
     return {
-        monitorTransition,
+        fixateInputContent,
     };
 }
