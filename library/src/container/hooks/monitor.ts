@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react";
+import { logDebug, logError, logWarn } from "../../logging";
 import { createInvertedPromise } from "../../utils/inverted-promise";
 import { mapMap } from "../../utils/map-map";
 import { createElementContentPositionFixation } from "../utils/position-fixation";
@@ -46,9 +47,7 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
             } = config.current;
 
             if (!navBarConfig || !scrollAreaConfig || !inputConfig.has(id)) {
-                console.error(
-                    "smooth edit: could not find config for all relevant components!"
-                );
+                logError("could not find config for all relevant components");
                 return;
             }
 
@@ -70,8 +69,8 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
                 !inputRoot.has(id) ||
                 !inputContent.has(id)
             ) {
-                console.warn(
-                    "smooth edit: could not find element refs for all relevant components!"
+                logWarn(
+                    "could not find element refs for all relevant components"
                 );
             }
 
@@ -161,9 +160,7 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
                 }
                 const input = transition.current.input.get(forId);
                 if (!input) {
-                    console.warn(
-                        "smooth edit: could not forward new input root to tracker"
-                    );
+                    logWarn("could not forward new input root to tracker");
                     return;
                 }
                 input.interface.setElement(node);
@@ -223,7 +220,7 @@ export function useMonitor(elements: ElementsRef, config: ConfigRef) {
                 elements.current.events.off("inputContent", onNewInputContent);
 
                 // some debug output
-                console.log("smooth edit: transition ended");
+                logDebug("transition ended");
             });
         },
         [elements, config]

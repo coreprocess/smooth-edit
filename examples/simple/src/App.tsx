@@ -1,6 +1,6 @@
 import { loremIpsum } from "lorem-ipsum";
 import React, { useCallback, useState } from "react";
-import { SmoothEditContainer } from "smooth-edit/dist/container";
+import { SmoothEditContainer } from "smooth-edit";
 import "./App.css";
 import { ExampleNavBar } from "./ExampleNavBar";
 import { ExampleScrollArea } from "./ExampleScrollArea";

@@ -1,5 +1,5 @@
 import React, { KeyboardEvent, useCallback, useEffect } from "react";
-import { wrapSmoothEditInput } from "smooth-edit/dist/input";
+import { wrapSmoothEditInput } from "smooth-edit";
 import { useRefWithForwarding } from "use-ref-with-forwarding";
 import "./ExampleTextInput.css";
 

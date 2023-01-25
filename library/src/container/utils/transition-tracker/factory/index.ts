@@ -1,3 +1,4 @@
+import { logDebug } from "../../../../logging";
 import { activeTransitionManagementFactory } from "./active-transition";
 import { EventListenerManagementFactory } from "./event-listener";
 import { timeoutManagementFactory } from "./timeout";
@@ -84,9 +85,7 @@ export function transitionTrackerFactory(
                 element = newElement;
                 if (element !== null) {
                     registerEventListener(element);
-                    console.log(
-                        "smooth edit: new element for transition tracker"
-                    );
+                    logDebug("new element for transition tracker");
                 }
             }
         }

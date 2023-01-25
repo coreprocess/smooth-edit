@@ -1,3 +1,5 @@
+import { logDebug } from "../../logging";
+
 // determindes the viewport Y position of the content of an element
 function getElementContentViewportPositionY(
     element: HTMLElement,
@@ -126,9 +128,7 @@ export function createElementContentPositionFixation(
         if (input !== newInput) {
             input = newInput;
             if (input) {
-                console.log(
-                    "smooth edit: new input element for position fixation"
-                );
+                logDebug("new input element for position fixation");
             }
         }
     }
@@ -137,9 +137,7 @@ export function createElementContentPositionFixation(
         if (scrollArea !== newScrollArea) {
             scrollArea = newScrollArea;
             if (scrollArea) {
-                console.log(
-                    "smooth edit: new scroll area for position fixation"
-                );
+                logDebug("new scroll area for position fixation");
             }
         }
     }
@@ -148,9 +146,7 @@ export function createElementContentPositionFixation(
         if (topBuffer !== newTopBuffer) {
             topBuffer = newTopBuffer;
             if (topBuffer) {
-                console.log(
-                    "smooth edit: new top buffer for position fixation"
-                );
+                logDebug("new top buffer for position fixation");
             }
         }
     }
@@ -159,9 +155,7 @@ export function createElementContentPositionFixation(
         if (bottomBuffer !== newBottomBuffer) {
             bottomBuffer = newBottomBuffer;
             if (bottomBuffer) {
-                console.log(
-                    "smooth edit: new bottom buffer for position fixation"
-                );
+                logDebug("new bottom buffer for position fixation");
             }
         }
     }

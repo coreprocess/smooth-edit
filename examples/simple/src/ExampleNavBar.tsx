@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { wrapSmoothEditNavBar } from "smooth-edit/dist/navbar";
+import { wrapSmoothEditNavBar } from "smooth-edit";
 
 export const ExampleNavBar = wrapSmoothEditNavBar(function ({
     editMode,

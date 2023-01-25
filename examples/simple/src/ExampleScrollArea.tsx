@@ -1,5 +1,5 @@
 import React from "react";
-import { wrapSmoothEditScrollArea } from "smooth-edit/dist/scrollarea";
+import { wrapSmoothEditScrollArea } from "smooth-edit";
 
 export const ExampleScrollArea = wrapSmoothEditScrollArea<{
     children: React.ReactNode;

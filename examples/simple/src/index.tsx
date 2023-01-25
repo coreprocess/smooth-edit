@@ -1,11 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
+import { createRoot } from "react-dom/client";
+import { setSmoothEditDebugMode } from "smooth-edit";
 import App from "./App";
+import "./index.css";
+
+setSmoothEditDebugMode(true);
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = ReactDOM.createRoot(document.getElementById("root")!);
-root.render(
+createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <App />
     </React.StrictMode>
