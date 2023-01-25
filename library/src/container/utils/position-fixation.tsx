@@ -124,19 +124,47 @@ export function createElementContentPositionFixation(
 
     // interface
     function setInput(newInput: HTMLElement | null) {
-        input = newInput;
+        if (input !== newInput) {
+            input = newInput;
+            if (input) {
+                console.log(
+                    "smooth edit: new input element for position fixation"
+                );
+            }
+        }
     }
 
     function setScrollArea(newScrollArea: HTMLElement | null) {
-        scrollArea = newScrollArea;
+        if (scrollArea !== newScrollArea) {
+            scrollArea = newScrollArea;
+            if (scrollArea) {
+                console.log(
+                    "smooth edit: new scroll area for position fixation"
+                );
+            }
+        }
     }
 
     function setTopBuffer(newTopBuffer: HTMLElement | null) {
-        topBuffer = newTopBuffer;
+        if (topBuffer !== newTopBuffer) {
+            topBuffer = newTopBuffer;
+            if (topBuffer) {
+                console.log(
+                    "smooth edit: new top buffer for position fixation"
+                );
+            }
+        }
     }
 
     function setBottomBuffer(newBottomBuffer: HTMLElement | null) {
-        bottomBuffer = newBottomBuffer;
+        if (bottomBuffer !== newBottomBuffer) {
+            bottomBuffer = newBottomBuffer;
+            if (bottomBuffer) {
+                console.log(
+                    "smooth edit: new bottom buffer for position fixation"
+                );
+            }
+        }
     }
 
     function cancel() {

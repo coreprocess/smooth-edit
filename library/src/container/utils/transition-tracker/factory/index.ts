@@ -84,6 +84,9 @@ export function transitionTrackerFactory(
                 element = newElement;
                 if (element !== null) {
                     registerEventListener(element);
+                    console.log(
+                        "smooth edit: new element for transition tracker"
+                    );
                 }
             }
         }
