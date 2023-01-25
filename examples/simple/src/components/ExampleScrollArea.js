@@ -1,5 +1,5 @@
 import React from "react";
-import { wrapSmoothEditScrollArea } from "smooth-edit/build/scrollarea";
+import { wrapSmoothEditScrollArea } from "smooth-edit/dist/scrollarea";
 
 export const ExampleScrollArea = wrapSmoothEditScrollArea(
     function ({ children, SmoothEditTopBuffer, SmoothEditBottomBuffer, rootRef }) {
