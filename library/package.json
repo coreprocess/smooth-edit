@@ -1,11 +1,11 @@
 {
     "name": "smooth-edit",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Smooth edit mode transition",
-    "main": "index.js",
-    "repository": "https://github.com/teamrevin/smooth-edit/library",
+    "main": "dist/index.js",
+    "repository": "https://github.com/teamrevin/smooth-edit/tree/main/library",
     "author": "Niklas Salmoukas",
-    "license": "COMMERCIAL",
+    "license": "MIT",
     "private": false,
     "scripts": {
         "build": "tsc"

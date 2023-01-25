@@ -1,11 +1,7 @@
 {
     "name": "smooth-edit-example-mui",
     "version": "1.0.0",
-    "description": "MUI example",
-    "main": "index.js",
-    "repository": "https://github.com/teamrevin/smooth-edit/examples/mui",
     "author": "Niklas Salmoukas",
-    "license": "COMMERCIAL",
     "private": true,
     "devDependencies": {
         "typescript": "^4.9.4"
