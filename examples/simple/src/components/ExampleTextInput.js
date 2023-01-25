@@ -6,7 +6,7 @@ import "./ExampleTextInput.css";
 export const ExampleTextInput = wrapSmoothEditInput(
     function ({ value, onChange, editMode, activateEditMode, rootRef, contentRef }) {
         // reference to the root element
-        const ref = useRefWithForwarding(rootRef, contentRef);
+        const ref = useRefWithForwarding(null, [rootRef, contentRef]);
 
         // update the div element when the value changes
         useEffect(
