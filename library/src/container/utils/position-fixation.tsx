@@ -75,6 +75,7 @@ export function createElementContentPositionFixation(
             if (pushDown > 0) {
                 const topBufferHeight =
                     topBuffer.getBoundingClientRect().height;
+                topBuffer.style.transition = "none";
                 topBuffer.style.height = `${topBufferHeight + pushDown}px`;
             }
         }
@@ -89,6 +90,7 @@ export function createElementContentPositionFixation(
                     pushUp,
                     topBufferHeight
                 );
+                topBuffer.style.transition = "none";
                 topBuffer.style.height = `${
                     topBufferHeight - decreaseTopBufferHeight
                 }px`;
@@ -110,6 +112,7 @@ export function createElementContentPositionFixation(
                         Math.round(pushUp - currentMaxScrollUp),
                         10
                     );
+                    bottomBuffer.style.transition = "none";
                     bottomBuffer.style.height = `${
                         bottomBufferHeight + increaseBottomBufferHeight
                     }px`;

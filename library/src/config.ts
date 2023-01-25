@@ -67,10 +67,13 @@ export const defaultSmoothEditNavBarConfig: SmoothEditNavBarConfig = {
 };
 
 // configuration for scroll area component
-export type SmoothEditScrollAreaConfig = SmoothEditBaseConfig;
+export type SmoothEditScrollAreaConfig = SmoothEditBaseConfig & {
+    bufferResetDuration: number;
+};
 
 export const defaultSmoothEditScrollAreaConfig: SmoothEditScrollAreaConfig = {
     ...defaultSmoothEditBaseConfig,
+    bufferResetDuration: 1000,
 };
 
 // configuration for input components

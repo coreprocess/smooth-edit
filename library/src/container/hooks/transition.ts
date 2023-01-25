@@ -206,6 +206,14 @@ export function useTransition(elements: ElementsRef, config: ConfigRef) {
         // cancel any active input content fixation
         cancelInputContentFixation();
 
+        // get config
+        const { scrollArea: scrollAreaConfig } = config.current;
+
+        if (!scrollAreaConfig) {
+            logError("could not find config for all relevant components");
+            return;
+        }
+
         // get refs to elements
         const { topBufferRoot, bottomBufferRoot } = elements.current;
         if (!topBufferRoot || !bottomBufferRoot) {
@@ -214,9 +222,11 @@ export function useTransition(elements: ElementsRef, config: ConfigRef) {
         }
 
         // reset scroll area buffers
+        topBufferRoot.style.transition = `height ${scrollAreaConfig.bufferResetDuration}ms`;
         topBufferRoot.style.height = "0px";
+        bottomBufferRoot.style.transition = `height ${scrollAreaConfig.bufferResetDuration}ms`;
         bottomBufferRoot.style.height = "0px";
-    }, [cancelInputContentFixation, elements]);
+    }, [cancelInputContentFixation, elements, config]);
 
     return {
         fixateInputContent,
