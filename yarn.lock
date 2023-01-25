@@ -8495,6 +8495,11 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+use-ref-with-forwarding@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-ref-with-forwarding/-/use-ref-with-forwarding-1.0.0.tgz#f1597b1a4bf995a962f3697f4a5ec7953f76ed7a"
+  integrity sha512-iZ60PLK6oZ3uTPKuI/3lq80daUwaBkR2Blp2aeqNzACXLIh3AAuvddNyG8DMpYaDtE7knkHsacYvXPve/YUH7Q==
+
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"

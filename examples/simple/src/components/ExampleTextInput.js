@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { wrapSmoothEditInput } from "smooth-edit/dist/input";
-import { useRefWithForwarding } from "smooth-edit/dist/utils/ref-forwarding";
+import { useRefWithForwarding } from "use-ref-with-forwarding";
 import "./ExampleTextInput.css";
 
 export const ExampleTextInput = wrapSmoothEditInput(
