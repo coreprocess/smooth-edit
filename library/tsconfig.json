@@ -11,6 +11,7 @@
 
         /* Emit */
         "outDir": "dist",
+        "declaration": true,
 
         /* Interop Constraints */
         "esModuleInterop": true,
