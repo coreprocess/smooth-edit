@@ -1,5 +1,5 @@
 import { MutableRefObject, useCallback, useRef } from "react";
-import { EventEmitter } from "eventemitter3";
+import { createEventEmitter } from "../../utils/eventemitter";
 
 type ElementsData = {
     navBarRoot: HTMLElement | null;
@@ -8,13 +8,15 @@ type ElementsData = {
     bottomBufferRoot: HTMLElement | null;
     inputRoot: Map<string, HTMLElement>;
     inputContent: Map<string, HTMLElement>;
-    events: EventEmitter<
-        | "navBarRoot"
-        | "scrollAreaRoot"
-        | "topBufferRoot"
-        | "bottomBufferRoot"
-        | "inputRoot"
-        | "inputContent"
+    events: ReturnType<
+        typeof createEventEmitter<
+            | "navBarRoot"
+            | "scrollAreaRoot"
+            | "topBufferRoot"
+            | "bottomBufferRoot"
+            | "inputRoot"
+            | "inputContent"
+        >
     >;
 };
 
@@ -28,7 +30,7 @@ export function useElements() {
         bottomBufferRoot: null,
         inputRoot: new Map(),
         inputContent: new Map(),
-        events: new EventEmitter(),
+        events: createEventEmitter(),
     });
 
     const setNavBarRootElement = useCallback((node: HTMLElement | null) => {
