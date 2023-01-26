@@ -32,15 +32,14 @@ export function SmoothEditContainer({
     );
 
     // edit mode management
-    const { editMode, activateEditMode, deactivateEditMode } = useEditMode(
-        fixateInputContent,
-        resetScrollAreaBuffers
-    );
+    const { editMode, editTrigger, activateEditMode, deactivateEditMode } =
+        useEditMode(fixateInputContent, resetScrollAreaBuffers);
 
     // create context value
     const context = useMemo(
         () => ({
             editMode,
+            editTrigger,
             activateEditMode,
             deactivateEditMode,
             setNavBarRootElement,
@@ -55,6 +54,7 @@ export function SmoothEditContainer({
         }),
         [
             editMode,
+            editTrigger,
             activateEditMode,
             deactivateEditMode,
             setNavBarRootElement,

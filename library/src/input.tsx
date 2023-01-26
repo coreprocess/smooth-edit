@@ -14,6 +14,7 @@ export interface InjectedSmoothEditInputProps {
     rootRef: React.RefCallback<HTMLElement>;
     contentRef: React.RefCallback<HTMLElement>;
     editMode: boolean;
+    editTrigger: boolean;
     activateEditMode: () => void;
     deactivateEditMode: () => void;
 }
@@ -30,6 +31,7 @@ export function wrapSmoothEditInput<OuterProps = object>(
         // get the context
         const {
             editMode,
+            editTrigger,
             activateEditMode,
             deactivateEditMode,
             setInputRootElement,
@@ -78,6 +80,7 @@ export function wrapSmoothEditInput<OuterProps = object>(
                 rootRef={setInputRootRef}
                 contentRef={setInputContentRef}
                 editMode={editMode}
+                editTrigger={editTrigger === id}
                 activateEditMode={activateEditModeWithId}
                 deactivateEditMode={deactivateEditMode}
             />

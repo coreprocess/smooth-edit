@@ -7,6 +7,7 @@ import {
 
 type SmoothEditContext = {
     editMode: boolean;
+    editTrigger: string | null;
     activateEditMode: (id?: string) => void;
     deactivateEditMode: () => void;
     setNavBarRootElement: (node: HTMLElement | null) => void;
@@ -22,6 +23,7 @@ type SmoothEditContext = {
 
 export const SmoothEditContext = createContext<SmoothEditContext>({
     editMode: false,
+    editTrigger: null,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     activateEditMode: (id?: string) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function

@@ -5,6 +5,7 @@ export function useEditMode(
     resetScrollAreaBuffers: () => void
 ) {
     const [editMode, setEditMode] = useState(false);
+    const [editTrigger, setEditTrigger] = useState<string | null>(null);
 
     const activateEditMode = useCallback(
         (id?: string) => {
@@ -13,6 +14,7 @@ export function useEditMode(
                     fixateInputContent(id);
                 }
                 setEditMode(true);
+                setEditTrigger(id || null);
             }
         },
         [editMode, fixateInputContent]
@@ -25,6 +27,7 @@ export function useEditMode(
 
     return {
         editMode,
+        editTrigger,
         activateEditMode,
         deactivateEditMode,
     };
