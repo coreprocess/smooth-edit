@@ -35,6 +35,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-scripts": "5.0.1",
-        "smooth-edit": "workspace:*"
+        "smooth-edit": "workspace:*",
+        "transition-hook": "^1.5.2"
     }
 }

@@ -1,6 +1,7 @@
 import { TextField, Typography } from "@mui/material";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { wrapSmoothEditInput } from "smooth-edit";
+import { useSwitchTransition } from "transition-hook";
 import { useRefWithForwarding } from "use-ref-with-forwarding";
 
 const ContentBody = wrapSmoothEditInput(function ({
@@ -30,27 +31,44 @@ const ContentBody = wrapSmoothEditInput(function ({
         setContent(event.target.value);
     }, []);
 
+    // transition
+    const transition = useSwitchTransition(editMode, 200, "out-in");
+
     // render edit and view mode
-    return editMode ? (
-        <TextField
-            ref={rootRef}
-            inputRef={contentRef}
-            label="Body"
-            autoFocus={editTrigger}
-            fullWidth
-            multiline
-            value={content}
-            onChange={onChange}
-        />
-    ) : (
-        <Typography
-            ref={ref}
-            onClick={onTextFieldClick}
-            variant="body2"
-            color="text.secondary"
-        >
-            {content}
-        </Typography>
+    return (
+        <>
+            {transition((state, stage: "from" | "enter" | "leave") => (
+                <div
+                    style={{
+                        transition: "200ms",
+                        opacity: stage === "enter" ? 1 : 0,
+                        padding: !state && stage !== "enter" ? "14px" : "0",
+                    }}
+                >
+                    {state ? (
+                        <TextField
+                            ref={rootRef}
+                            inputRef={contentRef}
+                            label="Body"
+                            autoFocus={editTrigger}
+                            fullWidth
+                            multiline
+                            value={content}
+                            onChange={onChange}
+                        />
+                    ) : (
+                        <Typography
+                            ref={ref}
+                            onClick={onTextFieldClick}
+                            variant="body2"
+                            color="text.secondary"
+                        >
+                            {content}
+                        </Typography>
+                    )}
+                </div>
+            ))}
+        </>
     );
 },
 {});
