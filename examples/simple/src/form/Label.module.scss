@@ -1,0 +1,24 @@
+.label {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: #1a1f36;
+    cursor: pointer;
+    font-size: px(14);
+    font-weight: 400;
+
+    &--h1 {
+        font-size: px(20);
+        font-weight: 700;
+    }
+
+    &--h2 {
+        font-size: px(14);
+        font-weight: 700;
+    }
+
+    &--h3 {
+        font-size: px(14);
+        font-weight: 500;
+    }
+}

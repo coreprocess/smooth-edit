@@ -34,7 +34,7 @@ export const FormTextarea = wrapSmoothEditInput<{
         <Styles value={styles}>
             <$UnstyledTextareaAutosize
                 ref={ref}
-                $block="example-text-input"
+                $block="textarea"
                 $modifier={{
                     "edit-mode": editMode,
                 }}
