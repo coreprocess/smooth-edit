@@ -1,5 +1,7 @@
+import { Styles, $div } from "@digitalentities/react-hook-bem";
 import React from "react";
 import { wrapSmoothEditScrollArea } from "smooth-edit";
+import styles from "./ScrollArea.module.scss";
 
 export const ScrollArea = wrapSmoothEditScrollArea<{
     children: React.ReactNode;
@@ -10,14 +12,13 @@ export const ScrollArea = wrapSmoothEditScrollArea<{
     rootRef,
 }) {
     return (
-        <div
-            ref={rootRef}
-            style={{ overflowY: "scroll", flexGrow: 1, flexShrink: 1 }}
-        >
-            <SmoothEditTopBuffer />
-            <div>{children}</div>
-            <SmoothEditBottomBuffer />
-        </div>
+        <Styles value={styles}>
+            <$div ref={rootRef} $block="scroll-area">
+                <SmoothEditTopBuffer />
+                {children}
+                <SmoothEditBottomBuffer />
+            </$div>
+        </Styles>
     );
 },
 {});

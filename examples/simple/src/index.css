@@ -5,3 +5,21 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: #e3e8ee;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #c1c9d2;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #8a8e9a;
+}

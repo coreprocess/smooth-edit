@@ -1,0 +1,11 @@
+@import "./utils";
+
+.scroll-area {
+    overflow-y: scroll;
+    overflow-y: overlay;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable both-edges;
+    padding: px(0) px(40);
+}

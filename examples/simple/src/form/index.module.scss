@@ -1,10 +1,20 @@
 @import "../utils";
 
-.form {
-    max-width: px(600);
+.container {
+    max-width: px(800);
     margin: 0 auto;
-    padding: px(24) px(12);
-    display: grid;
-    grid-template-columns: px(140) 1fr;
-    row-gap: px(12);
+    padding: px(48) px(0);
+
+    &__title {
+        font-size: px(28);
+        font-weight: 600;
+        padding-bottom: px(24);
+    }
+
+    &__form {
+        display: grid;
+        grid-template-columns: px(140) 1fr;
+        row-gap: px(16);
+        margin: px(0) px(2);
+    }
 }

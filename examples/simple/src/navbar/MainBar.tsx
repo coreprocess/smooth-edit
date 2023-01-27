@@ -16,13 +16,24 @@ export function MainBar() {
     return (
         <Styles value={styles}>
             <$header $block="toolbar">
-                <$div $element="logo">
-                    <$div $element="circle">
-                        <$FontAwesomeIcon $element="icon" icon={faStore} />
+                <$div $element="container">
+                    <$div $element="logo">
+                        <$div $element="circle">
+                            <$FontAwesomeIcon $element="icon" icon={faStore} />
+                        </$div>
+                        <$p $element="text">Example</$p>
                     </$div>
-                    <$p $element="text">Example</$p>
                 </$div>
             </$header>
+            <$div $block="navigation">
+                <$div $element="container">
+                    <$div $element="item" $modifier="active">
+                        Home
+                    </$div>
+                    <$div $element="item">About</$div>
+                    <$div $element="item">Contact</$div>
+                </$div>
+            </$div>
         </Styles>
     );
 }

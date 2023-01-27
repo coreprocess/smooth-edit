@@ -95,70 +95,73 @@ export function Form() {
 
     return (
         <Styles value={styles}>
-            <$div $block="form">
-                <$div>
-                    <FormLabel>Test Zero</FormLabel>
-                </$div>
-                <$div>
-                    <FormSelect
-                        value={form.test0}
-                        onChange={onFormTest0Change}
-                        options={formTestZeroOptions}
-                    />
-                </$div>
-                <$div>
-                    <FormLabel>Test One</FormLabel>
-                </$div>
-                <$div>
-                    <FormTextarea
-                        value={form.test1}
-                        onChange={onFormTest1Change}
-                    />
-                </$div>
-                <$div>
-                    <FormLabel>Test Two</FormLabel>
-                </$div>
-                <$div>
-                    <FormTextarea
-                        value={form.test2}
-                        onChange={onFormTest2Change}
-                    />
-                </$div>
-                <$div>
-                    <FormLabel>Test Three</FormLabel>
-                </$div>
-                <$div>
-                    <FormTextarea
-                        value={form.test3}
-                        onChange={onFormTest3Change}
-                    />
-                </$div>
-                <$div>
-                    <FormLabel>Test Four</FormLabel>
-                </$div>
-                <$div>
-                    <FormTextarea
-                        value={form.test4}
-                        onChange={onFormTest4Change}
-                    />
-                </$div>
-                <$div>
-                    <FormLabel>Test Five</FormLabel>
-                </$div>
-                <$div>
-                    <FormTextarea
-                        value={form.test5}
-                        onChange={onFormTest5Change}
-                    />
-                </$div>
-                <$div>
-                    <FormLabel>Test Six</FormLabel>
-                </$div>
-                <$div>
-                    <FormTextarea
-                        value={form.test6}
-                        onChange={onFormTest6Change}
-                    />
+            <$div $block="container">
+                <$div $element="title">Example</$div>
+                <$div $element="form">
+                    <$div>
+                        <FormLabel>Test Zero</FormLabel>
+                    </$div>
+                    <$div>
+                        <FormSelect
+                            value={form.test0}
+                            onChange={onFormTest0Change}
+                            options={formTestZeroOptions}
+                        />
+                    </$div>
+                    <$div>
+                        <FormLabel>Test One</FormLabel>
+                    </$div>
+                    <$div>
+                        <FormTextarea
+                            value={form.test1}
+                            onChange={onFormTest1Change}
+                        />
+                    </$div>
+                    <$div>
+                        <FormLabel>Test Two</FormLabel>
+                    </$div>
+                    <$div>
+                        <FormTextarea
+                            value={form.test2}
+                            onChange={onFormTest2Change}
+                        />
+                    </$div>
+                    <$div>
+                        <FormLabel>Test Three</FormLabel>
+                    </$div>
+                    <$div>
+                        <FormTextarea
+                            value={form.test3}
+                            onChange={onFormTest3Change}
+                        />
+                    </$div>
+                    <$div>
+                        <FormLabel>Test Four</FormLabel>
+                    </$div>
+                    <$div>
+                        <FormTextarea
+                            value={form.test4}
+                            onChange={onFormTest4Change}
+                        />
+                    </$div>
+                    <$div>
+                        <FormLabel>Test Five</FormLabel>
+                    </$div>
+                    <$div>
+                        <FormTextarea
+                            value={form.test5}
+                            onChange={onFormTest5Change}
+                        />
+                    </$div>
+                    <$div>
+                        <FormLabel>Test Six</FormLabel>
+                    </$div>
+                    <$div>
+                        <FormTextarea
+                            value={form.test6}
+                            onChange={onFormTest6Change}
+                        />
+                    </$div>
                 </$div>
             </$div>
         </Styles>
