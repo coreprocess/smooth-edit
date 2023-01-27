@@ -1674,6 +1674,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@digitalentities/react-hook-bem@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@digitalentities/react-hook-bem@npm:1.0.5"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: e700633e0f5e6995764934c417f5bb79804434d340900f7bdcd5e17511d27c8edabebefe1e0ee7926d38ab0b1d02c1ffc183a22803cb9bb419e8b7f74a06f1f5
+  languageName: node
+  linkType: hard
+
 "@emotion/babel-plugin@npm:^11.10.5":
   version: 11.10.5
   resolution: "@emotion/babel-plugin@npm:11.10.5"
@@ -4417,7 +4427,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.4.2, chokidar@npm:^3.5.3":
+"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.3":
   version: 3.5.3
   resolution: "chokidar@npm:3.5.3"
   dependencies:
@@ -7134,6 +7144,13 @@ __metadata:
   version: 9.0.18
   resolution: "immer@npm:9.0.18"
   checksum: 85b3153dd01fce73c40591d0d6d7cd95878dab49f8ec4744c044adac05e0dab847b30c26259c478a5f87f974897be6df2780ff5bf86c8a0a27578fdeb300eb10
+  languageName: node
+  linkType: hard
+
+"immutable@npm:^4.0.0":
+  version: 4.2.2
+  resolution: "immutable@npm:4.2.2"
+  checksum: 4d6437ea9388fe8ceca7eed5c768cf438cda7fa14d2831b87b90aa00cc60d536964d107c255b8a2e5dbf4f44a0e1295afbb9d1f0a65fb4f57b936e71df601862
   languageName: node
   linkType: hard
 
@@ -11218,6 +11235,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sass@npm:^1.57.1":
+  version: 1.57.1
+  resolution: "sass@npm:1.57.1"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+    immutable: ^4.0.0
+    source-map-js: ">=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: 734a08781bcbe0e8defb2d54864e7012014ed3e68ba5fcb766189b002929019fc37b2f83a18d4be0b5f69ad77317c92396ce6112447ab47a194ed600ae1afb27
+  languageName: node
+  linkType: hard
+
 "sax@npm:~1.2.4":
   version: 1.2.4
   resolution: "sax@npm:1.2.4"
@@ -11504,12 +11534,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "smooth-edit-example-simple@workspace:examples/simple"
   dependencies:
+    "@digitalentities/react-hook-bem": ^1.0.5
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
     lorem-ipsum: ^2.0.8
     react: ^18.2.0
     react-dom: ^18.2.0
     react-scripts: 5.0.1
+    sass: ^1.57.1
     smooth-edit: "workspace:*"
     typescript: ^4.9.4
     unstyled-textarea-autosize: ^1.0.1
@@ -11567,7 +11599,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:^1.0.1, source-map-js@npm:^1.0.2":
+"source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.0.1, source-map-js@npm:^1.0.2":
   version: 1.0.2
   resolution: "source-map-js@npm:1.0.2"
   checksum: c049a7fc4deb9a7e9b481ae3d424cc793cb4845daa690bc5a05d428bf41bf231ced49b4cf0c9e77f9d42fdb3d20d6187619fc586605f5eabe995a316da8d377c

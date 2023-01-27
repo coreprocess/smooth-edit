@@ -1,13 +1,16 @@
+import { Styles, withBEM } from "@digitalentities/react-hook-bem";
 import React, { useCallback } from "react";
 import { wrapSmoothEditInput } from "smooth-edit";
 import { UnstyledTextareaAutosize } from "unstyled-textarea-autosize";
 import { useRefWithForwarding } from "use-ref-with-forwarding";
-import "./ExampleTextInput.css";
+import styles from "./ExampleTextInput.module.scss";
+
+const $UnstyledTextareaAutosize = withBEM(UnstyledTextareaAutosize);
 
 export const ExampleTextInput = wrapSmoothEditInput<{
     value: string;
     onChange: (value: string) => void;
-}>(function ({
+}>(function ExampleTextInput({
     value,
     onChange,
     editMode,
@@ -28,16 +31,20 @@ export const ExampleTextInput = wrapSmoothEditInput<{
 
     // render the unstyled textare element
     return (
-        <UnstyledTextareaAutosize
-            ref={ref}
-            className={`form-text-input ${
-                editMode ? "edit-mode" : "view-mode"
-            }`}
-            spellCheck={false}
-            onFocus={onFocus}
-            value={value}
-            onValueChange={onChange}
-        />
+        <Styles value={styles}>
+            <$UnstyledTextareaAutosize
+                ref={ref}
+                $block="example-text-input"
+                $modifier={{
+                    "edit-mode": editMode,
+                    "view-mode": !editMode,
+                }}
+                spellCheck={false}
+                onFocus={onFocus}
+                value={value}
+                onValueChange={onChange}
+            />
+        </Styles>
     );
 },
 {});
