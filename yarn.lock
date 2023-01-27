@@ -11512,6 +11512,7 @@ __metadata:
     react-scripts: 5.0.1
     smooth-edit: "workspace:*"
     typescript: ^4.9.4
+    unstyled-textarea-autosize: ^1.0.1
     use-ref-with-forwarding: ^1.0.1
   languageName: unknown
   linkType: soft
@@ -12472,6 +12473,17 @@ __metadata:
   version: 1.1.1
   resolution: "unquote@npm:1.1.1"
   checksum: 71745867d09cba44ba2d26cb71d6dda7045a98b14f7405df4faaf2b0c90d24703ad027a9d90ba9a6e0d096de2c8d56f864fd03f1c0498c0b7a3990f73b4c8f5f
+  languageName: node
+  linkType: hard
+
+"unstyled-textarea-autosize@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "unstyled-textarea-autosize@npm:1.0.1"
+  dependencies:
+    use-ref-with-forwarding: ^1.0.1
+  peerDependencies:
+    react: "*"
+  checksum: 2bb001230824921f43e9c4e5dd4bd0c1b9e106ef512269e63a35811f826af9f5d69073c6ba4a4de976ceb71b7e4ca5d4aa8922f4b45a47eb0744a57cf27f18dd
   languageName: node
   linkType: hard
 
