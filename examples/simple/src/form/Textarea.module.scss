@@ -8,10 +8,6 @@
     font-weight: 400;
     transition: padding 1s, box-shadow 1s;
 
-    &--view-mode {
-        /*! keep */
-    }
-
     &--edit-mode {
         padding: px(8);
         box-shadow: px(0) px(0) px(0) px(1) #3c425732,

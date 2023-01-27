@@ -7,10 +7,10 @@ import styles from "./Textarea.module.scss";
 
 const $UnstyledTextareaAutosize = withBEM(UnstyledTextareaAutosize);
 
-export const Textarea = wrapSmoothEditInput<{
+export const FormTextarea = wrapSmoothEditInput<{
     value: string;
     onChange: (value: string) => void;
-}>(function Textarea({
+}>(function FormTextarea({
     value,
     onChange,
     editMode,
@@ -37,7 +37,6 @@ export const Textarea = wrapSmoothEditInput<{
                 $block="example-text-input"
                 $modifier={{
                     "edit-mode": editMode,
-                    "view-mode": !editMode,
                 }}
                 spellCheck={false}
                 onFocus={onFocus}

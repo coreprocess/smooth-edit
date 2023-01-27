@@ -1,0 +1,126 @@
+@import "../utils";
+
+.select-wrapper {
+    :global {
+        .select {
+            &__container {
+                font-size: px(14);
+                font-weight: 400;
+            }
+
+            &__control {
+                min-height: px(0);
+                border: none;
+                outline: none;
+                background: transparent;
+                border-radius: px(4);
+                box-shadow: none;
+                transition: box-shadow 1s;
+            }
+
+            &__value-container {
+                padding-left: px(0);
+                transition: padding 1s;
+            }
+
+            &__single-value {
+                margin: px(0);
+                padding: px(0);
+            }
+
+            &__input-container {
+                color: #1a1f36;
+                margin: px(0);
+                padding: px(0);
+            }
+
+            &__placeholder {
+                margin: px(0);
+                padding: px(0);
+            }
+
+            &__indicators {
+                opacity: 0;
+                transition: opacity 1s;
+            }
+
+            &__indicator-separator {
+                margin-top: px(0);
+                margin-bottom: px(0);
+                transition: margin 1s;
+            }
+
+            &__indicator {
+                color: #1a1f36;
+                padding: px(0);
+                transition: padding 1s;
+
+                > svg {
+                    height: px(0);
+                    transition: height 1s;
+                }
+            }
+
+            &__option {
+                &--is-focused,
+                &:hover {
+                    background: #f4f5f8;
+                }
+
+                &--is-selected,
+                &--is-selected:hover {
+                    background: #635bff;
+                }
+            }
+        }
+    }
+
+    &--edit-mode {
+        :global {
+            .select {
+                &__control {
+                    box-shadow: px(0) px(0) px(0) px(1) #3c425732,
+                        px(0) px(2) px(4) px(0) #00000007,
+                        px(0) px(1) px(1.5) px(0) #00000005;
+
+                    &:hover {
+                        box-shadow: px(0) px(0) px(0) px(1) #3c425732,
+                            px(0) px(2) px(4) px(0) #00000007,
+                            px(0) px(1) px(1.5) px(0) #00000005,
+                            px(0) px(2) px(5) px(0) #3c425708;
+                    }
+
+                    &:active,
+                    &--is-focused {
+                        &,
+                        &:hover {
+                            box-shadow: 0 0 0 px(4) #3a97d45c,
+                                0 0 0 px(1) #3c425729;
+                        }
+                    }
+                }
+
+                &__value-container {
+                    padding-left: px(8);
+                }
+
+                &__indicators {
+                    opacity: 1;
+                }
+
+                &__indicator-separator {
+                    margin-top: px(8);
+                    margin-bottom: px(8);
+                }
+
+                &__indicator {
+                    padding: px(8);
+
+                    > svg {
+                        height: px(20);
+                    }
+                }
+            }
+        }
+    }
+}
