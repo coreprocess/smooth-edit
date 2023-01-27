@@ -41,6 +41,14 @@ export const FormSelect = wrapSmoothEditInput<{
         return innerOptions.find((option) => option.value === value) || null;
     }, [value, innerOptions]);
 
+    // forward changes
+    const onInnerChange = useCallback(
+        (option: { value: string; label: string } | null) => {
+            onChange(option?.value ?? null);
+        },
+        [onChange]
+    );
+
     // activate edit mode when the select element is focused
     const onFocus = useCallback(() => {
         activateEditMode();
@@ -58,6 +66,7 @@ export const FormSelect = wrapSmoothEditInput<{
                     ref={setRef}
                     options={innerOptions}
                     value={innerValue}
+                    onChange={onInnerChange}
                     onFocus={onFocus}
                     placeholder={editMode ? "Select..." : "None"}
                     className="select__container"

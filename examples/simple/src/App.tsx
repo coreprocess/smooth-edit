@@ -7,8 +7,15 @@ import { FormSelect } from "./form/Select";
 import { NavBar } from "./NavBar";
 import { ScrollArea } from "./ScrollArea";
 
+const formTestZeroOptions = {
+    test1: "Test 1",
+    test2: "Test 2",
+    test3: "Test 3",
+};
+
 function App() {
     const [form, setForm] = useState({
+        test0: null as string | null,
         test1: loremIpsum({ count: 5, units: "sentences" }),
         test2: loremIpsum({ count: 5, units: "sentences" }),
         test3: loremIpsum({ count: 5, units: "sentences" }),
@@ -16,6 +23,16 @@ function App() {
         test5: loremIpsum({ count: 5, units: "sentences" }),
         test6: loremIpsum({ count: 5, units: "sentences" }),
     });
+
+    const onFormTest0Change = useCallback(
+        (value: string | null) => {
+            setForm({
+                ...form,
+                test0: value,
+            });
+        },
+        [form, setForm]
+    );
 
     const onFormTest1Change = useCallback(
         (value: string) => {
@@ -83,15 +100,9 @@ function App() {
                 <NavBar />
                 <ScrollArea>
                     <FormSelect
-                        value={null}
-                        onChange={(value) => {
-                            console.log(value);
-                        }}
-                        options={{
-                            test1: "Test 1",
-                            test2: "Test 2",
-                            test3: "Test 3",
-                        }}
+                        value={form.test0}
+                        onChange={onFormTest0Change}
+                        options={formTestZeroOptions}
                     />
                     <FormTextarea
                         value={form.test1}
