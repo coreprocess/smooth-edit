@@ -1,0 +1,41 @@
+@import "../utils";
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    height: px(44);
+    padding: px(0) px(40);
+    background: #f4f5f8;
+    box-shadow: inset px(0) px(-1) #e3e8ee;
+
+    &__logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        &__circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: px(16);
+            height: px(16);
+            padding: px(6);
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 px(2) px(5) #3c425708, 0 px(1) px(1) #00000012;
+
+            &__icon {
+                width: px(14);
+                height: px(14);
+                color: #8a8e9a;
+            }
+        }
+
+        &__text {
+            margin-left: px(8);
+            color: #3c4257;
+            font-size: px(12);
+            font-weight: 500;
+        }
+    }
+}

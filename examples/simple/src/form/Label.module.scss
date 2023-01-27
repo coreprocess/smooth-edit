@@ -1,9 +1,7 @@
 @import "../utils";
 
 .label {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    display: block;
     color: #1a1f36;
     font-size: px(14);
     font-weight: 400;

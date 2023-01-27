@@ -3,7 +3,7 @@ import React from "react";
 import { SmoothEditContainer } from "smooth-edit";
 import styles from "./App.module.scss";
 import { Form } from "./form";
-import { NavBar } from "./NavBar";
+import { NavBar } from "./navbar";
 import { ScrollArea } from "./ScrollArea";
 
 function App() {
