@@ -1,0 +1,16 @@
+/*
+* Utility classes
+*/
+
+@use "sass:math";
+
+/*
+* Convert px to rem
+*/
+@function px($value) {
+    @if unit($value) != "" {
+        @error "value is required to be unit-less";
+    }
+
+    @return math.div($value, 16) * 1rem;
+}

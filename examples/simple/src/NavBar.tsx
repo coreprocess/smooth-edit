@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { wrapSmoothEditNavBar } from "smooth-edit";
 
-export const ExampleNavBar = wrapSmoothEditNavBar(function ExampleNavBar({
+export const NavBar = wrapSmoothEditNavBar(function NavBar({
     editMode,
     deactivateEditMode,
     rootRef,

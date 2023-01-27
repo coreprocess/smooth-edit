@@ -1,9 +1,9 @@
 import React from "react";
 import { wrapSmoothEditScrollArea } from "smooth-edit";
 
-export const ExampleScrollArea = wrapSmoothEditScrollArea<{
+export const ScrollArea = wrapSmoothEditScrollArea<{
     children: React.ReactNode;
-}>(function ExampleScrollArea({
+}>(function ScrollArea({
     children,
     SmoothEditTopBuffer,
     SmoothEditBottomBuffer,

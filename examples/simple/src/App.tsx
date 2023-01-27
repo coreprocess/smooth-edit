@@ -2,9 +2,9 @@ import { loremIpsum } from "lorem-ipsum";
 import React, { useCallback, useState } from "react";
 import { SmoothEditContainer } from "smooth-edit";
 import "./App.css";
-import { ExampleNavBar } from "./ExampleNavBar";
-import { ExampleScrollArea } from "./ExampleScrollArea";
-import { ExampleTextInput } from "./ExampleTextInput";
+import { Textarea } from "./form/Textarea";
+import { NavBar } from "./NavBar";
+import { ScrollArea } from "./ScrollArea";
 
 function App() {
     const [form, setForm] = useState({
@@ -79,33 +79,15 @@ function App() {
     return (
         <div className="App">
             <SmoothEditContainer>
-                <ExampleNavBar />
-                <ExampleScrollArea>
-                    <ExampleTextInput
-                        value={form.test1}
-                        onChange={onFormTest1Change}
-                    />
-                    <ExampleTextInput
-                        value={form.test2}
-                        onChange={onFormTest2Change}
-                    />
-                    <ExampleTextInput
-                        value={form.test3}
-                        onChange={onFormTest3Change}
-                    />
-                    <ExampleTextInput
-                        value={form.test4}
-                        onChange={onFormTest4Change}
-                    />
-                    <ExampleTextInput
-                        value={form.test5}
-                        onChange={onFormTest5Change}
-                    />
-                    <ExampleTextInput
-                        value={form.test6}
-                        onChange={onFormTest6Change}
-                    />
-                </ExampleScrollArea>
+                <NavBar />
+                <ScrollArea>
+                    <Textarea value={form.test1} onChange={onFormTest1Change} />
+                    <Textarea value={form.test2} onChange={onFormTest2Change} />
+                    <Textarea value={form.test3} onChange={onFormTest3Change} />
+                    <Textarea value={form.test4} onChange={onFormTest4Change} />
+                    <Textarea value={form.test5} onChange={onFormTest5Change} />
+                    <Textarea value={form.test6} onChange={onFormTest6Change} />
+                </ScrollArea>
             </SmoothEditContainer>
         </div>
     );

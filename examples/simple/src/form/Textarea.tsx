@@ -3,14 +3,14 @@ import React, { useCallback } from "react";
 import { wrapSmoothEditInput } from "smooth-edit";
 import { UnstyledTextareaAutosize } from "unstyled-textarea-autosize";
 import { useRefWithForwarding } from "use-ref-with-forwarding";
-import styles from "./ExampleTextInput.module.scss";
+import styles from "./Textarea.module.scss";
 
 const $UnstyledTextareaAutosize = withBEM(UnstyledTextareaAutosize);
 
-export const ExampleTextInput = wrapSmoothEditInput<{
+export const Textarea = wrapSmoothEditInput<{
     value: string;
     onChange: (value: string) => void;
-}>(function ExampleTextInput({
+}>(function Textarea({
     value,
     onChange,
     editMode,
