@@ -42,7 +42,7 @@ const defaultSmoothEditBaseConfig: SmoothEditBaseConfig = {
             totalTimeout: 1000,
         },
         styleMutations: {
-            enabled: false,
+            enabled: true,
             idleTimeout: 250,
             totalTimeout: 1000,
         },

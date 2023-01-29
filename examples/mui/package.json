@@ -35,7 +35,6 @@
         "@mui/material": "^5.11.6",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "smooth-edit": "workspace:*",
-        "transition-hook": "^1.5.2"
+        "smooth-edit": "workspace:*"
     }
 }
