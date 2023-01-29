@@ -1,5 +1,5 @@
 import { TextField, Typography } from "@mui/material";
-import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 import { wrapSmoothEditInput } from "smooth-edit";
 import { SmoothTransition } from "../test/SmoothTransition";
 
