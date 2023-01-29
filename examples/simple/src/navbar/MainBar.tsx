@@ -5,7 +5,7 @@ import {
     Styles,
     withBEM,
 } from "@digitalentities/react-hook-bem";
-import { faStore } from "@fortawesome/pro-solid-svg-icons";
+import { faStore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styles from "./MainBar.module.scss";

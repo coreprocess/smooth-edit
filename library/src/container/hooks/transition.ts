@@ -1,9 +1,11 @@
 import { useCallback, useRef } from "react";
 import { logDebug, logError, logWarn } from "../../logging";
 import { mapMap } from "../../utils/map-map";
-import { createElementContentPositionFixation } from "../utils/position-fixation";
-import { TransitionTracker } from "../utils/transition-tracker/factory";
-import { createParallelTracker } from "../utils/transition-tracker/parallel";
+import { createPositionFixation } from "../utils/position-fixation";
+import {
+    createTransitionTracker,
+    TransitionTracker,
+} from "../utils/transition-tracker";
 import { ConfigRef } from "./config";
 import { ElementsRef } from "./elements";
 
@@ -72,17 +74,17 @@ export function useTransition(elements: ElementsRef, config: ConfigRef) {
 
             // create all trackers
             tracker.current = {
-                navBar: createParallelTracker(
+                navBar: createTransitionTracker(
                     navBarRoot,
                     navBarConfig.trackTransition
                 ),
-                scrollArea: createParallelTracker(
+                scrollArea: createTransitionTracker(
                     scrollAreaRoot,
                     scrollAreaConfig.trackTransition
                 ),
                 input: mapMap(inputConfig, (id, config) => [
                     id,
-                    createParallelTracker(
+                    createTransitionTracker(
                         inputRoot.get(id) ?? null,
                         config.trackTransition
                     ),
@@ -90,7 +92,7 @@ export function useTransition(elements: ElementsRef, config: ConfigRef) {
             };
 
             // fix element content position
-            const fixation = createElementContentPositionFixation(
+            const fixation = createPositionFixation(
                 inputContent.get(id) ?? null,
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 inputConfig.get(id)!.fixContent,

@@ -18,7 +18,7 @@ function getElementContentViewportPositionY(
 }
 
 // fixes the position of the content of an element in the viewport until stoped
-export function createElementContentPositionFixation(
+export function createPositionFixation(
     input: HTMLElement | null,
     where: "top" | "middle" | "bottom",
     scrollArea: HTMLElement | null,

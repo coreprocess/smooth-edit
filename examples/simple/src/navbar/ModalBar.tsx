@@ -4,7 +4,7 @@ import {
     Styles,
     withBEM,
 } from "@digitalentities/react-hook-bem";
-import { faTimes } from "@fortawesome/pro-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useContext } from "react";
 import { SmoothEditContext } from "smooth-edit";

@@ -21,6 +21,11 @@ type SmoothEditBaseConfig = {
             idleTimeout: number;
             totalTimeout: number;
         };
+        resize: {
+            enabled: boolean;
+            idleTimeout: number;
+            totalTimeout: number;
+        };
         custom: {
             enabled: boolean;
             idleTimeout: number;
@@ -48,6 +53,11 @@ const defaultSmoothEditBaseConfig: SmoothEditBaseConfig = {
         },
         domMutations: {
             enabled: false,
+            idleTimeout: 250,
+            totalTimeout: 1000,
+        },
+        resize: {
+            enabled: true,
             idleTimeout: 250,
             totalTimeout: 1000,
         },
