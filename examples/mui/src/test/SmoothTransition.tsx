@@ -1,10 +1,10 @@
 import React, {
+    ComponentType,
+    forwardRef,
     useCallback,
-    useLayoutEffect,
     useEffect,
     useRef,
     useState,
-    forwardRef,
 } from "react";
 import { useRefWithForwarding } from "use-ref-with-forwarding";
 
@@ -15,291 +15,263 @@ const TYPE_OUT = "out" as const;
 export const SmoothTransition = forwardRef<
     HTMLDivElement | null,
     {
-        components: ((
-            state: "enter" | "active" | "leave"
-        ) => React.ReactNode)[];
+        components: ComponentType<{ state: "enter" | "active" | "leave" }>[];
         active: number;
         duration: number;
     }
 >(function SmoothTransition({ components, active, duration }, outerRef) {
-    // root reference
+    // references
     const rootRef = useRefWithForwarding<HTMLDivElement | null>(
         null,
         outerRef ? [outerRef] : []
     );
 
-    // render queue
-    const [render, setRender] = useState<number[]>([active]);
-
-    // add active component to render queue
-    useEffect(() => {
-        // update only if not already last element in render queue
-        if (render[render.length - 1] !== active) {
-            setRender([
-                // remove active component from other positions in render queue
-                ...render.filter((component) => component !== active),
-                // add active component to end of render queue
-                active,
-            ]);
-        }
-    }, [active, render, setRender]);
-
-    // transition and frame calculation logic
-    const transition = useRef<null | {
-        lastInChange: {
-            timeStamp: DOMHighResTimeStamp;
-            component: number;
-            startHeight: number;
-        };
-        lastFrame: {
-            timeStamp: DOMHighResTimeStamp;
-        };
-    }>(null);
-
-    const nextFrameId = useRef<number | null>(null);
-
-    const onNextFrame = useCallback(
-        (timeStamp: DOMHighResTimeStamp) => {
-            // mark requested frame as executed
-            nextFrameId.current = null;
-
-            // schedule next frame if ref is missing
-            if (!rootRef.current) {
-                nextFrameId.current = requestAnimationFrame(onNextFrame);
-                return;
-            }
-
-            // get references
-            const refs: {
-                placeholder: HTMLDivElement | null;
-                out: { node: HTMLDivElement; component: number }[];
-                in: { node: HTMLDivElement; component: number } | null;
-            } = {
-                placeholder: null,
-                out: [],
-                in: null,
-            };
-
-            for (let i = 0; i < rootRef.current.children.length; i++) {
-                const node = rootRef.current.children[i];
-                if (node instanceof HTMLDivElement) {
-                    const component = parseInt(node.dataset.component || "-1");
-                    switch (node.dataset.type) {
-                        case TYPE_PLACEHOLDER:
-                            refs.placeholder = node;
-                            break;
-                        case TYPE_OUT:
-                            refs.out.push({ node, component });
-                            break;
-                        case TYPE_IN:
-                            refs.in = { node, component };
-                            break;
-                        default:
-                            throw new Error(
-                                "smooth transition: unexpected node type"
-                            );
-                    }
-                }
-            }
-
-            if (!refs.placeholder || !refs.in) {
-                nextFrameId.current = requestAnimationFrame(onNextFrame);
-                return;
-            }
-
-            // initialize opacity style
-            for (const ref of [...refs.out, refs.in]) {
-                if (!ref.node.style.opacity) {
-                    ref.node.style.opacity = refs.out.length > 0 ? "0" : "1";
-                }
-            }
-
-            // initialize height style
-            if (!refs.placeholder.style.height) {
-                refs.placeholder.style.height =
-                    refs.in.node.offsetHeight + "px";
-            }
-
-            // initialize transition
-            if (!transition.current) {
-                transition.current = {
-                    lastInChange: {
-                        timeStamp,
-                        component: refs.in.component,
-                        startHeight: parseFloat(refs.placeholder.style.height),
-                    },
-                    lastFrame: {
-                        timeStamp,
-                    },
-                };
-            }
-
-            // calculate last frame progress
-            const lastFrameProgress = Math.min(
-                Math.max(
-                    (timeStamp - transition.current.lastFrame.timeStamp) /
-                        duration,
-                    0
-                ),
-                1
-            );
-
-            // update transition
-            if (transition.current) {
-                if (
-                    transition.current.lastInChange.component !==
-                    refs.in.component
-                ) {
-                    transition.current.lastInChange = {
-                        timeStamp,
-                        component: refs.in.component,
-                        startHeight: parseFloat(refs.placeholder.style.height),
-                    };
-                }
-                transition.current.lastFrame.timeStamp = timeStamp;
-            }
-
-            // calculate last in change progress
-            const lastInChangeProgress = Math.min(
-                Math.max(
-                    (timeStamp - transition.current.lastInChange.timeStamp) /
-                        duration,
-                    0
-                ),
-                1
-            );
-
-            // progress opacity
-            for (const ref of refs.out) {
-                ref.node.style.opacity = Math.max(
-                    parseFloat(ref.node.style.opacity) - lastFrameProgress,
-                    0
-                ).toString();
-            }
-
-            refs.in.node.style.opacity = Math.min(
-                parseFloat(refs.in.node.style.opacity) + lastFrameProgress,
-                1
-            ).toString();
-
-            // progress height of placeholder
-            const newPlaceholderHeight = (() => {
-                // determine start and target height
-                const startHeight = transition.current.lastInChange.startHeight;
-                const targetHeight = refs.in.node.offsetHeight;
-
-                // interpolate
-                return (
-                    (targetHeight - startHeight) * lastInChangeProgress +
-                    startHeight
-                );
-            })();
-
-            refs.placeholder.style.height = newPlaceholderHeight + "px";
-
-            // ensure pointer events are only handled by the incoming component
-            for (const ref of refs.out) {
-                ref.node.style.pointerEvents = "none";
-            }
-
-            refs.in.node.style.pointerEvents =
-                parseFloat(refs.in.node.style.opacity) < 0.5 ? "none" : "auto";
-
-            // determine if we still have unfinished transitions in the render queue
-            const newRender = render.filter((component, i) => {
-                if (i < render.length - 1) {
-                    const ref = refs.out.find(
-                        (ref) => ref.component === component
-                    );
-                    if (!ref || parseFloat(ref.node.style.opacity) > 0) {
-                        return true;
-                    }
-                    return false;
-                } else {
-                    return true;
-                }
-            });
-
-            // update render queue, which will also schedule the next frame implicitly
-            if (JSON.stringify(newRender) !== JSON.stringify(render)) {
-                setRender(newRender);
-            }
-            // ... or schedule next frame if needed
-            else {
-                // check if we are done and reset transition state if so
-                if (
-                    newRender.length === 1 &&
-                    refs.in.component === newRender[0] &&
-                    parseFloat(refs.in.node.style.opacity) === 1 &&
-                    refs.in.node.offsetHeight ===
-                        parseFloat(refs.placeholder.style.height)
-                ) {
-                    transition.current = null;
-                }
-                // if not, schedule next frame
-                else {
-                    nextFrameId.current = requestAnimationFrame(onNextFrame);
-                }
-            }
-        },
-        [rootRef, render, duration]
-    );
-
-    // calculate next frame on each render immediately
-    useLayoutEffect(() => {
-        if (nextFrameId.current !== null) {
-            cancelAnimationFrame(nextFrameId.current);
-        }
-        onNextFrame(performance.now());
+    // transition state
+    const [transition, setTransition] = useState<{
+        out: number[];
+        in: number;
+        state: "init" | "enter" | "active";
+    }>({
+        out: [],
+        in: active,
+        state: "active",
     });
 
-    // schedule next frame on resize
+    // initiate transition for new active component
     useEffect(() => {
-        function onResize() {
-            if (nextFrameId.current === null) {
-                nextFrameId.current = requestAnimationFrame(onNextFrame);
-            }
+        if (transition.in !== active) {
+            setTransition({
+                out: [
+                    ...transition.out.filter(
+                        (component) => component !== active
+                    ),
+                    transition.in,
+                ],
+                in: active,
+                state: "init",
+            });
         }
-        window.addEventListener("resize", onResize);
-        window.addEventListener("orientationchange", onResize);
+    }, [transition, active]);
+
+    // switch from init to enter state
+    useEffect(() => {
+        if (transition.state === "init") {
+            requestAnimationFrame(() => {
+                setTransition({
+                    ...transition,
+                    state: "enter",
+                });
+            });
+        }
+    }, [transition]);
+
+    // target height of placeholder
+    const [targetHeight, setTargetHeight] = useState(0);
+
+    // observe inbound component size and update placeholder height
+    const resizeObserver = useRef<ResizeObserver | null>(null);
+
+    const updateResizeObserver = useCallback(
+        (node: HTMLDivElement | null) => {
+            // clean up observer
+            if (node === null) {
+                if (resizeObserver.current !== null) {
+                    resizeObserver.current.disconnect();
+                    resizeObserver.current = null;
+                }
+            }
+
+            // initialize height and set up observer
+            else {
+                // reduce re-renders by only updating height if it changed
+                let lastTargetHeight: number | null = null;
+
+                const setTargetHeightIfChanged = () => {
+                    const newTargetHeight = node.offsetHeight;
+                    if (lastTargetHeight !== newTargetHeight) {
+                        setTargetHeight(newTargetHeight);
+                        lastTargetHeight = newTargetHeight;
+                    }
+                };
+
+                // set initial height
+                setTargetHeightIfChanged();
+
+                // set up resize observer
+                resizeObserver.current = new ResizeObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.target === node) {
+                            setTargetHeightIfChanged();
+                        }
+                    }
+                });
+
+                resizeObserver.current.observe(node);
+            }
+        },
+        [setTargetHeight]
+    );
+
+    // observe end of transitions
+    useEffect(() => {
+        // install timer
+        const interval = setInterval(() => {
+            // skip if not in enter state
+            if (transition.state !== "enter") {
+                return;
+            }
+
+            // lookup refs
+            const outRefs = transition.out.map(
+                (component) =>
+                    rootRef.current?.querySelector<HTMLDivElement>(
+                        `:scope>div[data-type="${TYPE_OUT}"][data-component="${component}"]`
+                    ) ?? null
+            );
+
+            const inRef =
+                rootRef.current?.querySelector<HTMLDivElement>(
+                    `:scope>div[data-type="${TYPE_IN}"][data-component="${transition.in}"]`
+                ) ?? null;
+
+            const placeholderRef =
+                rootRef.current?.querySelector<HTMLDivElement>(
+                    `:scope>[data-type="${TYPE_PLACEHOLDER}"]`
+                ) ?? null;
+
+            if (
+                outRefs.includes(null) ||
+                inRef === null ||
+                placeholderRef === null
+            ) {
+                console.error("smooth transition: missing internal refs");
+                return;
+            }
+
+            // check for pending transitions
+            const outComponentsPending = transition.out.filter(
+                (_, index) =>
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    parseFloat(getComputedStyle(outRefs[index]!).opacity) >
+                    0.0001
+            );
+
+            const isInPending =
+                parseFloat(getComputedStyle(inRef).opacity) < 0.9999;
+
+            const isPlaceholderPending =
+                Math.abs(placeholderRef.offsetHeight - targetHeight) > 0.0001;
+
+            // update transition state
+            const newTransition = {
+                out: outComponentsPending,
+                in: transition.in,
+                state:
+                    outComponentsPending.length > 0 ||
+                    isInPending ||
+                    isPlaceholderPending
+                        ? ("enter" as const)
+                        : ("active" as const),
+            };
+
+            if (JSON.stringify(newTransition) !== JSON.stringify(transition)) {
+                setTransition(newTransition);
+            }
+        }, 250);
+
+        // clean up timer
         return () => {
-            window.removeEventListener("resize", onResize);
-            window.removeEventListener("orientationchange", onResize);
+            clearInterval(interval);
         };
-    }, [onNextFrame]);
+    }, [rootRef, transition, targetHeight]);
+
+    // debug
+    // console.log(
+    //     `smooth transition: render pass, transition=${JSON.stringify(
+    //         transition
+    //     )}, targetHeight=${targetHeight}`
+    // );
 
     // render base DOM structure
     return (
         <div ref={rootRef} style={{ position: "relative" }}>
-            <div
-                key={TYPE_PLACEHOLDER}
-                data-type={TYPE_PLACEHOLDER}
-                style={{
-                    visibility: "hidden",
-                    pointerEvents: "none",
-                }}
-            />
-            {render.map((component, i) => (
+            {[
                 <div
-                    key={component}
-                    data-type={i < render.length - 1 ? TYPE_OUT : TYPE_IN}
-                    data-component={component}
+                    key={TYPE_PLACEHOLDER}
+                    data-type={TYPE_PLACEHOLDER}
+                    style={{
+                        visibility: "hidden",
+                        pointerEvents: "none",
+                        height: targetHeight + "px",
+                        ...{
+                            init: {
+                                transition: `height ${duration}ms`,
+                            },
+                            enter: {
+                                transition: `height ${duration}ms`,
+                            },
+                            active: {},
+                        }[transition.state],
+                    }}
+                />,
+                ...transition.out.map((component) => (
+                    <div
+                        key={component.toString()}
+                        data-type={TYPE_OUT}
+                        data-component={component}
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            top: 0,
+                            right: 0,
+                            opacity: 0,
+                            transition: `opacity ${duration}ms`,
+                        }}
+                    >
+                        {(() => {
+                            const Component = components[component];
+                            return <Component state="leave" />;
+                        })()}
+                    </div>
+                )),
+                <div
+                    ref={updateResizeObserver}
+                    key={transition.in.toString()}
+                    data-type={TYPE_IN}
+                    data-component={transition.in}
                     style={{
                         position: "absolute",
                         left: 0,
                         top: 0,
                         right: 0,
+                        ...{
+                            init: {
+                                opacity: 0,
+                            },
+                            enter: {
+                                opacity: 1,
+                                transition: `opacity ${duration}ms`,
+                            },
+                            active: {
+                                opacity: 1,
+                            },
+                        }[transition.state],
                     }}
                 >
-                    {components[component](
-                        i < render.length - 1
-                            ? "leave"
-                            : i > 0
-                            ? "enter"
-                            : "active"
-                    )}
-                </div>
-            ))}
+                    {(() => {
+                        const Component = components[transition.in];
+                        return (
+                            <Component
+                                state={
+                                    transition.state === "active"
+                                        ? "active"
+                                        : "enter"
+                                }
+                            />
+                        );
+                    })()}
+                </div>,
+            ]}
         </div>
     );
 });

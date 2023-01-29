@@ -1,5 +1,5 @@
 import { TextField, Typography } from "@mui/material";
-import React, { ChangeEvent, useCallback, useState } from "react";
+import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { wrapSmoothEditInput } from "smooth-edit";
 import { SmoothTransition } from "../test/SmoothTransition";
 
@@ -24,35 +24,39 @@ const ContentBody = wrapSmoothEditInput(function ({
         setContent(event.target.value);
     }, []);
 
+    // prepare components
+    const components = useMemo(
+        () => [
+            ({ state }: { state: "enter" | "active" | "leave" }) => (
+                <Typography
+                    ref={state != "leave" ? contentRef : undefined}
+                    onClick={onTextFieldClick}
+                    variant="body2"
+                    color="text.secondary"
+                >
+                    {content}
+                </Typography>
+            ),
+            ({ state }: { state: "enter" | "active" | "leave" }) => (
+                <TextField
+                    inputRef={state != "leave" ? contentRef : undefined}
+                    label="Body"
+                    autoFocus={editTrigger}
+                    fullWidth
+                    multiline
+                    value={content}
+                    onChange={onChange}
+                />
+            ),
+        ],
+        [contentRef, onTextFieldClick, editTrigger, content, onChange]
+    );
+
     // render edit and view mode
     return (
         <SmoothTransition
             ref={rootRef}
-            components={[
-                (state) => (
-                    <Typography
-                        key="view"
-                        ref={state != "leave" ? contentRef : undefined}
-                        onClick={onTextFieldClick}
-                        variant="body2"
-                        color="text.secondary"
-                    >
-                        {content}
-                    </Typography>
-                ),
-                (state) => (
-                    <TextField
-                        key="edit"
-                        inputRef={state != "leave" ? contentRef : undefined}
-                        label="Body"
-                        autoFocus={editTrigger}
-                        fullWidth
-                        multiline
-                        value={content}
-                        onChange={onChange}
-                    />
-                ),
-            ]}
+            components={components}
             active={!editMode ? 0 : 1}
             duration={500}
         />
