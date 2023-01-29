@@ -22,38 +22,32 @@ const ContentTitle = wrapSmoothEditInput(function ({
         setContent(event.target.value);
     }, []);
 
-    // prepare components
-    const components = useMemo(
-        () => [
-            ({ state }: { state: "enter" | "active" | "leave" }) => (
-                <Typography
-                    ref={state != "leave" ? contentRef : undefined}
-                    onClick={onTextFieldClick}
-                    variant="h5"
-                    component="div"
-                >
-                    {content}
-                </Typography>
-            ),
-            ({ state }: { state: "enter" | "active" | "leave" }) => (
-                <TextField
-                    inputRef={state != "leave" ? contentRef : undefined}
-                    label="Title"
-                    autoFocus={editTrigger}
-                    fullWidth
-                    value={content}
-                    onChange={onChange}
-                />
-            ),
-        ],
-        [contentRef, onTextFieldClick, editTrigger, content, onChange]
-    );
-
     // render edit and view mode
     return (
         <SmoothTransition
             ref={rootRef}
-            components={components}
+            render={[
+                (state) => (
+                    <Typography
+                        ref={state != "leave" ? contentRef : undefined}
+                        onClick={onTextFieldClick}
+                        variant="h5"
+                        component="div"
+                    >
+                        {content}
+                    </Typography>
+                ),
+                (state) => (
+                    <TextField
+                        inputRef={state != "leave" ? contentRef : undefined}
+                        label="Title"
+                        autoFocus={editTrigger}
+                        fullWidth
+                        value={content}
+                        onChange={onChange}
+                    />
+                ),
+            ]}
             active={!editMode ? 0 : 1}
             duration={500}
         />

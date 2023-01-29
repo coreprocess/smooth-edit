@@ -24,39 +24,33 @@ const ContentBody = wrapSmoothEditInput(function ({
         setContent(event.target.value);
     }, []);
 
-    // prepare components
-    const components = useMemo(
-        () => [
-            ({ state }: { state: "enter" | "active" | "leave" }) => (
-                <Typography
-                    ref={state != "leave" ? contentRef : undefined}
-                    onClick={onTextFieldClick}
-                    variant="body2"
-                    color="text.secondary"
-                >
-                    {content}
-                </Typography>
-            ),
-            ({ state }: { state: "enter" | "active" | "leave" }) => (
-                <TextField
-                    inputRef={state != "leave" ? contentRef : undefined}
-                    label="Body"
-                    autoFocus={editTrigger}
-                    fullWidth
-                    multiline
-                    value={content}
-                    onChange={onChange}
-                />
-            ),
-        ],
-        [contentRef, onTextFieldClick, editTrigger, content, onChange]
-    );
-
     // render edit and view mode
     return (
         <SmoothTransition
             ref={rootRef}
-            components={components}
+            render={[
+                (state) => (
+                    <Typography
+                        ref={state != "leave" ? contentRef : undefined}
+                        onClick={onTextFieldClick}
+                        variant="body2"
+                        color="text.secondary"
+                    >
+                        {content}
+                    </Typography>
+                ),
+                (state) => (
+                    <TextField
+                        inputRef={state != "leave" ? contentRef : undefined}
+                        label="Body"
+                        autoFocus={editTrigger}
+                        fullWidth
+                        multiline
+                        value={content}
+                        onChange={onChange}
+                    />
+                ),
+            ]}
             active={!editMode ? 0 : 1}
             duration={500}
         />

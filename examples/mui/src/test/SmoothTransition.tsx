@@ -1,6 +1,6 @@
 import React, {
-    ComponentType,
     forwardRef,
+    ReactNode,
     useCallback,
     useEffect,
     useRef,
@@ -15,11 +15,11 @@ const TYPE_OUT = "out" as const;
 export const SmoothTransition = forwardRef<
     HTMLDivElement | null,
     {
-        components: ComponentType<{ state: "enter" | "active" | "leave" }>[];
+        render: ((state: "enter" | "active" | "leave") => ReactNode)[];
         active: number;
         duration: number;
     }
->(function SmoothTransition({ components, active, duration }, outerRef) {
+>(function SmoothTransition({ render, active, duration }, outerRef) {
     // references
     const rootRef = useRefWithForwarding<HTMLDivElement | null>(
         null,
@@ -228,10 +228,7 @@ export const SmoothTransition = forwardRef<
                             transition: `opacity ${duration}ms`,
                         }}
                     >
-                        {(() => {
-                            const Component = components[component];
-                            return <Component state="leave" />;
-                        })()}
+                        {render[component]("leave")}
                     </div>
                 )),
                 <div
@@ -258,18 +255,9 @@ export const SmoothTransition = forwardRef<
                         }[transition.state],
                     }}
                 >
-                    {(() => {
-                        const Component = components[transition.in];
-                        return (
-                            <Component
-                                state={
-                                    transition.state === "active"
-                                        ? "active"
-                                        : "enter"
-                                }
-                            />
-                        );
-                    })()}
+                    {render[transition.in](
+                        transition.state === "active" ? "active" : "enter"
+                    )}
                 </div>,
             ]}
         </div>
