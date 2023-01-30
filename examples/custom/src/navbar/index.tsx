@@ -1,5 +1,6 @@
 import React from "react";
 import { wrapSmoothEditNavBar } from "smooth-edit";
+import { SmoothTransition } from "smooth-transition";
 import { MainBar } from "./MainBar";
 import { ModalBar } from "./ModalBar";
 
@@ -15,7 +16,11 @@ export const NavBar = wrapSmoothEditNavBar(function NavBar({
                 flexShrink: 0,
             }}
         >
-            {!editMode ? <MainBar /> : <ModalBar />}
+            <SmoothTransition
+                render={[() => <MainBar />, () => <ModalBar />]}
+                active={!editMode ? 0 : 1}
+                duration={1000}
+            />
         </div>
     );
 },

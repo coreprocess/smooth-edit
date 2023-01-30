@@ -38,6 +38,7 @@
     "react-dom": "^18.2.0",
     "react-select": "^5.7.0",
     "smooth-edit": "workspace:*",
+    "smooth-transition": "^1.0.1",
     "unstyled-textarea-autosize": "^1.0.1",
     "use-ref-with-forwarding": "^1.0.1"
   }
