@@ -1,7 +1,7 @@
 import { TextField, Typography } from "@mui/material";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { wrapSmoothEditInput } from "smooth-edit";
-import { SmoothTransition } from "../test/SmoothTransition";
+import { SmoothTransition } from "smooth-transition";
 
 const ContentBody = wrapSmoothEditInput(function ({
     editMode,
