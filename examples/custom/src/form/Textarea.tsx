@@ -29,7 +29,7 @@ export const FormTextarea = wrapSmoothEditInput<{
         activateEditMode();
     }, [activateEditMode]);
 
-    // render the unstyled textare element
+    // render the unstyled textarea element
     return (
         <Styles value={styles}>
             <$UnstyledTextareaAutosize
