@@ -11629,7 +11629,7 @@ __metadata:
     react-dom: ^18.2.0
     react-scripts: 5.0.1
     smooth-edit: "workspace:*"
-    smooth-transition: ^1.0.0
+    smooth-transition: ^1.0.1
     typescript: ^4.9.4
   languageName: unknown
   linkType: soft
@@ -11644,17 +11644,6 @@ __metadata:
     react: "*"
   languageName: unknown
   linkType: soft
-
-"smooth-transition@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "smooth-transition@npm:1.0.0"
-  dependencies:
-    use-ref-with-forwarding: ^1.0.1
-  peerDependencies:
-    react: "*"
-  checksum: add292a33e3aefaa4d20485cb5600d7a0e115accc36114a1b5cdac5f7401180cd9918cb74725ce6cf9e91d0764ebfeb99a6a40091c3078357aaa569d5fa03e21
-  languageName: node
-  linkType: hard
 
 "smooth-transition@npm:^1.0.1":
   version: 1.0.1

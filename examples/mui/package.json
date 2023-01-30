@@ -36,6 +36,6 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "smooth-edit": "workspace:*",
-        "smooth-transition": "^1.0.0"
+        "smooth-transition": "^1.0.1"
     }
 }
