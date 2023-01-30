@@ -5,8 +5,9 @@ on:
         branches:
             - publish
 jobs:
-    build:
+    publish:
         runs-on: ubuntu-latest
+        environment: publish
         steps:
             - uses: actions/checkout@v2
             - run: yarn
