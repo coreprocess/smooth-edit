@@ -11,7 +11,9 @@ jobs:
             - uses: actions/checkout@v2
             - run: yarn
             - run: yarn build
-            - run: yarn publish
-              working-directory: library
+            - run: yarn config set npmAuthToken $NPM_TOKEN
               env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+            - run: yarn config set npmAlwaysAuth true
+            - run: yarn npm publish
+              working-directory: library
