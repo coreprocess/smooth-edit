@@ -12,5 +12,6 @@ jobs:
             - run: yarn
             - run: yarn build
             - run: yarn publish
+              working-directory: library
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
