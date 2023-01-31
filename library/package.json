@@ -1,12 +1,21 @@
 {
     "name": "smooth-edit",
-    "version": "1.0.4",
-    "description": "Smooth edit mode transition",
+    "version": "1.0.5",
+    "description": "A smooth edit mode framework for React.",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
     "repository": "https://github.com/teamrevin/smooth-edit",
     "author": "Niklas Salmoukas",
+    "keywords": [
+        "react",
+        "framework",
+        "higher-order-component",
+        "hoc",
+        "edit",
+        "transition",
+        "smooth"
+    ],
     "license": "MIT",
     "scripts": {
         "build": "tsc"
