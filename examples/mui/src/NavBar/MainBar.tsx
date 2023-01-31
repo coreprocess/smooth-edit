@@ -1,4 +1,3 @@
-import AdbIcon from "@mui/icons-material/Adb";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import AppBar from "@mui/material/AppBar";
@@ -104,7 +103,7 @@ function MainBar() {
                             ))}
                         </Menu>
                     </Box>
-                    <AdbIcon
+                    <MenuBookIcon
                         sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
                     />
                     <Typography
@@ -123,7 +122,7 @@ function MainBar() {
                             textDecoration: "none",
                         }}
                     >
-                        LOGO
+                        EXAMPLE
                     </Typography>
                     <Box
                         sx={{
