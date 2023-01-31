@@ -21,7 +21,7 @@ export interface InjectedSmoothEditNavBarProps {
 
 export function wrapSmoothEditNavBar<OuterProps = object>(
     Component: ComponentType<OuterProps & InjectedSmoothEditNavBarProps>,
-    config: DeepPartial<SmoothEditNavBarConfig>
+    config?: DeepPartial<SmoothEditNavBarConfig>
 ) {
     // higher order component that wraps the inner component
     return function SmoothEditNavBar(props: OuterProps) {
@@ -39,7 +39,7 @@ export function wrapSmoothEditNavBar<OuterProps = object>(
             setNavBarConfig(
                 merge(
                     defaultSmoothEditNavBarConfig,
-                    config
+                    config || {}
                 ) as SmoothEditNavBarConfig
             );
             return () => {

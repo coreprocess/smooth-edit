@@ -22,7 +22,7 @@ export interface InjectedSmoothEditInputProps {
 
 export function wrapSmoothEditInput<OuterProps = object>(
     Component: ComponentType<OuterProps & InjectedSmoothEditInputProps>,
-    config: DeepPartial<SmoothEditInputConfig>
+    config?: DeepPartial<SmoothEditInputConfig>
 ) {
     // higher order component that wraps the inner component
     return function SmoothEditInput(props: OuterProps) {
@@ -46,7 +46,7 @@ export function wrapSmoothEditInput<OuterProps = object>(
                 id,
                 merge(
                     defaultSmoothEditInputConfig,
-                    config
+                    config || {}
                 ) as SmoothEditInputConfig
             );
             return () => {

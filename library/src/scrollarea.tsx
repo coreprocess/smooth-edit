@@ -33,7 +33,7 @@ export interface InjectedSmoothEditScrollAreaProps {
 
 export function wrapSmoothEditScrollArea<OuterProps = object>(
     Component: ComponentType<OuterProps & InjectedSmoothEditScrollAreaProps>,
-    config: DeepPartial<SmoothEditScrollAreaConfig>
+    config?: DeepPartial<SmoothEditScrollAreaConfig>
 ) {
     // higher order component that wraps the inner component
     return function SmoothEditScrollArea(props: OuterProps) {
@@ -51,7 +51,7 @@ export function wrapSmoothEditScrollArea<OuterProps = object>(
             setScrollAreaConfig(
                 merge(
                     defaultSmoothEditScrollAreaConfig,
-                    config
+                    config || {}
                 ) as SmoothEditScrollAreaConfig
             );
             return () => {
