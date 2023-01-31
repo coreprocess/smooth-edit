@@ -5,8 +5,8 @@
 
 `smooth-edit` is a smooth edit mode framework for React. It allows you to implement a seamless transition between a view and an edit mode to provide the user with an optimal editing experience. It is UI and form library agnostic.
 
-[![Demo Video](https://i.ytimg.com/vi/s29F_pDROeM/maxresdefault.jpg)](https://www.youtube.com/watch?v=s29F_pDROeM)
-([Demo Video](https://www.youtube.com/watch?v=s29F_pDROeM))
+[![Demo Video](https://i.ytimg.com/vi/fChEPk-R-zs/maxresdefault.jpg)](https://www.youtube.com/watch?v=fChEPk-R-zs)
+([Demo Video](https://www.youtube.com/watch?v=fChEPk-R-zs))
 
 ## Installation
 

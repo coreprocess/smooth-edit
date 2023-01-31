@@ -1,6 +1,6 @@
 {
     "name": "smooth-edit",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "description": "A smooth edit mode framework for React.",
     "main": "dist/index.js",
     "module": "dist/index.js",
