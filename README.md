@@ -25,11 +25,11 @@ npm install smooth-edit --save
 
 **`useContext(SmoothEditContext)`:** Provides access to the edit mode and other tools wherever needed.
 
-**`wrapSmoothEditNavBar()`:** Wraps your _navigation bar_ in a HOC. It injects the edit mode and other tools into the inner component. It also enables the framework to track any visual transitions.
+**`wrapSmoothEditNavBar()`:** Wraps your _navigation bar_ in a higher-order component. It injects the edit mode and other tools into the inner component. It also enables the framework to track any visual transitions.
 
-**`wrapSmoothEditScrollArea()`:** Wraps your _scroll area_ in a HOC. It injects the **`SmoothEditTopBuffer`** and **`SmoothEditBottomBuffer`** buffer components that must be rendered within the scroll area and other tools into the inner component. It also enables the framework to track any visual transitions.
+**`wrapSmoothEditScrollArea()`:** Wraps your _scroll area_ in a higher-order component. It injects the **`SmoothEditTopBuffer`** and **`SmoothEditBottomBuffer`** buffer components that must be rendered within the scroll area and other tools into the inner component. It also enables the framework to track any visual transitions.
 
-**`wrapSmoothEditInput()`:** Wraps your _input components_ in HOCs. It injects the edit mode and other tools into the inner component. It also enables the framework to fixate the viewport position of the input component during the transition that triggered the edit mode. And it enables the framework to track any visual transitions.
+**`wrapSmoothEditInput()`:** Wraps your _input components_ in higher-order components. It injects the edit mode and other tools into the inner component. It also enables the framework to fixate the viewport position of the input component during the transition that triggered the edit mode. And it enables the framework to track any visual transitions.
 
 ## Examples
 
