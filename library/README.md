@@ -22,7 +22,7 @@ npm install smooth-edit --save
 
 ## Overview
 
-![Overview](README.assets/overview.png)
+![Overview](overview.png)
 
 **`<SmoothEditContainer />`:** Renders an initialized `SmoothEditContext`.
 
