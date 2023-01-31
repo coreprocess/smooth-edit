@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { MutableRefObject, useCallback, useRef } from "react";
 import {
     SmoothEditInputConfig,
     SmoothEditNavBarConfig,
@@ -11,7 +11,7 @@ type ConfigData = {
     input: Map<string, SmoothEditInputConfig>;
 };
 
-export type ConfigRef = React.MutableRefObject<ConfigData>;
+export type ConfigRef = MutableRefObject<ConfigData>;
 
 export function useConfig() {
     const config = useRef<ConfigData>({

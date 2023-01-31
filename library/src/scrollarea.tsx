@@ -1,4 +1,9 @@
-import React, { ComponentType, useContext, useEffect } from "react";
+import React, {
+    ComponentType,
+    RefCallback,
+    useContext,
+    useEffect,
+} from "react";
 import {
     defaultSmoothEditScrollAreaConfig,
     SmoothEditScrollAreaConfig,
@@ -18,7 +23,7 @@ function BottomBuffer() {
 }
 
 export interface InjectedSmoothEditScrollAreaProps {
-    rootRef: React.RefCallback<HTMLElement>;
+    rootRef: RefCallback<HTMLElement>;
     editMode: boolean;
     activateEditMode: () => void;
     deactivateEditMode: () => void;

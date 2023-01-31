@@ -57,7 +57,7 @@ A context providing the following properties:
 
 A higher-order component that passes through all properties and injects the following additional properties into the inner component:
 
--   `rootRef: React.RefCallback<HTMLElement>`: Reference expected to be attached to the root DOM element of the component. The framework uses it to track the visual transitions of the component.
+-   `rootRef: RefCallback<HTMLElement>`: Reference expected to be attached to the root DOM element of the component. The framework uses it to track the visual transitions of the component.
 -   `editMode: boolean`: Indicates if edit mode is active.
 -   `activateEditMode: () => void`: Activates the edit mode.
 -   `deactivateEditMode: () => void`: Deactivates the edit mode.
@@ -66,7 +66,7 @@ A higher-order component that passes through all properties and injects the foll
 
 A higher-order component that passes through all properties and injects the following additional properties into the inner component:
 
--   `rootRef: React.RefCallback<HTMLElement>`: Reference expected to be attached to the root DOM element of the component. The framework uses it to track the visual transitions of the component.
+-   `rootRef: RefCallback<HTMLElement>`: Reference expected to be attached to the root DOM element of the component. The framework uses it to track the visual transitions of the component.
 -   `editMode: boolean`: Indicates if edit mode is active.
 -   `activateEditMode: () => void`: Activates the edit mode.
 -   `deactivateEditMode: () => void`: Deactivates the edit mode.
@@ -77,8 +77,8 @@ A higher-order component that passes through all properties and injects the foll
 
 A higher-order component that passes through all properties and injects the following additional properties into the inner component:
 
--   `rootRef: React.RefCallback<HTMLElement>`: Reference expected to be attached to the root DOM element of the component. The framework uses it to track the visual transitions of the component.
--   `contentRef: React.RefCallback<HTMLElement>`: Reference expected to be attached to the content-carrying DOM element of the component. The framework uses it to fixate the viewport position of an input element during the edit mode transition. Use [`useRefWithForwarding()`](https://www.npmjs.com/package/use-ref-with-forwarding) to combine `rootRef` and `contentRef` if they are the same.
+-   `rootRef: RefCallback<HTMLElement>`: Reference expected to be attached to the root DOM element of the component. The framework uses it to track the visual transitions of the component.
+-   `contentRef: RefCallback<HTMLElement>`: Reference expected to be attached to the content-carrying DOM element of the component. The framework uses it to fixate the viewport position of an input element during the edit mode transition. Use [`useRefWithForwarding()`](https://www.npmjs.com/package/use-ref-with-forwarding) to combine `rootRef` and `contentRef` if they are the same.
 -   `editMode: boolean`: Indicates if edit mode is active.
 -   `editTrigger: boolean`: Indicates if the input component triggered the edit mode. It can be used to set the initial focus on an inner input component if the inner component is switched during the transition ([example](examples/mui/src/Content/ContentBody.tsx)).
 -   `activateEditMode: () => void`: Activates the edit mode.

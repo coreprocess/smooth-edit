@@ -1,10 +1,10 @@
 import { Styles, $div } from "@digitalentities/react-hook-bem";
-import React from "react";
+import React, { ReactNode } from "react";
 import { wrapSmoothEditScrollArea } from "smooth-edit";
 import styles from "./ScrollArea.module.scss";
 
 export const ScrollArea = wrapSmoothEditScrollArea<{
-    children: React.ReactNode;
+    children: ReactNode;
 }>(function ScrollArea({
     children,
     SmoothEditTopBuffer,

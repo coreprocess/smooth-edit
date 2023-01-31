@@ -1,5 +1,6 @@
 import React, {
     ComponentType,
+    RefCallback,
     useCallback,
     useContext,
     useEffect,
@@ -11,8 +12,8 @@ import { merge } from "./utils/deep-merge";
 import { DeepPartial } from "./utils/types";
 
 export interface InjectedSmoothEditInputProps {
-    rootRef: React.RefCallback<HTMLElement>;
-    contentRef: React.RefCallback<HTMLElement>;
+    rootRef: RefCallback<HTMLElement>;
+    contentRef: RefCallback<HTMLElement>;
     editMode: boolean;
     editTrigger: boolean;
     activateEditMode: () => void;

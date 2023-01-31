@@ -1,9 +1,9 @@
 import { Box } from "@mui/system";
-import React from "react";
+import React, { ReactNode } from "react";
 import { wrapSmoothEditScrollArea } from "smooth-edit";
 
 const ScrollArea = wrapSmoothEditScrollArea<{
-    children: React.ReactNode;
+    children: ReactNode;
 }>(function ({
     children,
     SmoothEditTopBuffer,

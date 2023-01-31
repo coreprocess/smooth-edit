@@ -1,4 +1,9 @@
-import React, { ComponentType, useContext, useEffect } from "react";
+import React, {
+    ComponentType,
+    RefCallback,
+    useContext,
+    useEffect,
+} from "react";
 import {
     defaultSmoothEditNavBarConfig,
     SmoothEditNavBarConfig,
@@ -8,7 +13,7 @@ import { merge } from "./utils/deep-merge";
 import { DeepPartial } from "./utils/types";
 
 export interface InjectedSmoothEditNavBarProps {
-    rootRef: React.RefCallback<HTMLElement>;
+    rootRef: RefCallback<HTMLElement>;
     editMode: boolean;
     activateEditMode: () => void;
     deactivateEditMode: () => void;
