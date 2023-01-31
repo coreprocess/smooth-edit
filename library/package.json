@@ -1,11 +1,19 @@
 {
     "name": "smooth-edit",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "description": "A smooth edit mode framework for React.",
     "main": "dist/index.js",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
-    "repository": "https://github.com/teamrevin/smooth-edit",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/teamrevin/smooth-edit.git",
+        "directory": "library"
+    },
+    "homepage": "https://github.com/teamrevin/smooth-edit#readme",
+    "bugs": {
+        "url": "https://github.com/teamrevin/smooth-edit/issues"
+    },
     "author": "Niklas Salmoukas",
     "keywords": [
         "react",
