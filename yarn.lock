@@ -11609,7 +11609,7 @@ __metadata:
     smooth-edit: "workspace:*"
     smooth-transition: ^1.0.1
     typescript: ^4.9.4
-    unstyled-textarea-autosize: ^1.0.1
+    unstyled-textarea-autosize: ^1.0.5
     use-ref-with-forwarding: ^1.0.1
   languageName: unknown
   linkType: soft
@@ -12594,14 +12594,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unstyled-textarea-autosize@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "unstyled-textarea-autosize@npm:1.0.1"
+"unstyled-textarea-autosize@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "unstyled-textarea-autosize@npm:1.0.5"
   dependencies:
-    use-ref-with-forwarding: ^1.0.1
+    use-ref-with-forwarding: ^1.0.5
   peerDependencies:
     react: "*"
-  checksum: 2bb001230824921f43e9c4e5dd4bd0c1b9e106ef512269e63a35811f826af9f5d69073c6ba4a4de976ceb71b7e4ca5d4aa8922f4b45a47eb0744a57cf27f18dd
+  checksum: 602a4de2fad2f385d94cced9f2b2b5fe286f53bfaf3dc24e1f626426920d569521fb1fee82c8955c89c3c565ac6ed11f9d4b34c687053bd144338fcd16475af7
   languageName: node
   linkType: hard
 
@@ -12663,6 +12663,15 @@ __metadata:
   peerDependencies:
     react: "*"
   checksum: 59ac2dbcd24aa675e0abc8ab1e4241a23c90475a48558b1f4a3b0ef7c0329ea5a32ad8fcac0cc76d3122e8af15c6a212435ee72d3dfdef86b617b11493bfcb7b
+  languageName: node
+  linkType: hard
+
+"use-ref-with-forwarding@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "use-ref-with-forwarding@npm:1.0.5"
+  peerDependencies:
+    react: "*"
+  checksum: 100306b1ac32c1d2d1c3da3143dbefc270ef25f5eb2600caf077ef39bb2eacd2ea7528158f510d7e7cb68332ee54f32e957800cfdbb31355cbf49a3bb7018507
   languageName: node
   linkType: hard
 
